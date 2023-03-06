@@ -1,0 +1,5 @@
+{
+	"canPurgeSeqRun":0,
+	"eodschTime":1602,
+	"bodschTime":1902
+}
