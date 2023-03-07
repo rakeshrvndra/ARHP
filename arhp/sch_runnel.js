@@ -40,20 +40,15 @@ function runnelSchWrapper(){
         //So nothing
     }
 
-    plc_client.readCoils(700,1,function(resp){
-        m7Bit = resp.coils[0];
-        //watchDog.eventLog('PixieLightsMode '+m7Bit);
-     });
-
     if ((current_time >= on_time)&&(current_time < off_time)){
         //watchDog.eventLog('Filter Sch IF' +on_time +' off ' +off_time);
-         plc_client.writeSingleCoil(2120,1,function(resp){
+         plc_client.writeSingleCoil(2005,1,function(resp){
             //watchDog.eventLog('Fire Sch ON');
          });
         //turn ON
     }
     else{
-         plc_client.writeSingleCoil(2120,0,function(resp){
+         plc_client.writeSingleCoil(2005,0,function(resp){
             //watchDog.eventLog('Fire Sch ON');
          });
         //turn OFF

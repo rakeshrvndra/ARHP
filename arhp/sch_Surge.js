@@ -43,7 +43,7 @@ function surgeSchWrapper(){
     if ((current_time >= on_time)&&(current_time < off_time)){
         //watchDog.eventLog('Cascade Sch IF' +on_time +' off ' +off_time);
         //turn ON
-        plc_client.writeSingleCoil(2111,1,function(resp){
+        plc_client.writeSingleCoil(2009,1,function(resp){
             //watchDog.eventLog('Fire Sch ON');
         });
 
@@ -51,7 +51,7 @@ function surgeSchWrapper(){
     else{
         //watchDog.eventLog('Cascade Sch ELSE' +on_time +' off ' +off_time);
         //turn OFF
-        plc_client.writeSingleCoil(2111,0,function(resp){
+        plc_client.writeSingleCoil(2009,0,function(resp){
             //watchDog.eventLog('Fire Sch OFF');
         });
 

@@ -1,0 +1,56 @@
+//
+//  FogSpecs.swift
+//  iPadControls
+//
+//  Created by Jan Manalo on 9/10/18.
+//  Copyright © 2018 WET. All rights reserved.
+//
+
+import Foundation
+
+/***************************************************************************
+ * Section  :  FOG SPECS
+ * Comments :  Use this file to change and write the correct address
+ ***************************************************************************/
+
+let HCPPT1_SCALEDMAX = 7504
+let HCPPT1_SCALEDMIN = 7502
+let HCPPT2_SCALEDMAX = 7514
+let HCPPT2_SCALEDMIN = 7512
+let HCPPT3_SCALEDMAX = 7524
+let HCPPT3_SCALEDMIN = 7522
+let HCPLEL_SCALEDMAX = 7554
+let HCPLEL_SCALEDMIN = 7552
+
+let HCPTT1_SCALEDMAX = 7534
+let HCPTT1_SCALEDMIN = 7532
+let HCPTT2_SCALEDMAX = 7544
+let HCPTT2_SCALEDMIN = 7542
+let HCPO2_SCALEDMAX = 7564
+let HCPO2_SCALEDMIN = 7562
+
+let HCPPT1_SCALEDVAL = 7500
+let HCPPT2_SCALEDVAL = 7510
+let HCPPT3_SCALEDVAL = 7520
+let HCPTT1_SCALEDVAL = 7530
+let HCPTT2_SCALEDVAL = 7540
+let HCP_LELSCALEDVAL = 7550
+let HCP_O2SCALEDVAL  = 7560
+
+let FIRE1PT3_SCALEDVAL = 5510
+let FIRE2PT3_SCALEDVAL = 5570
+let FIRE3PT3_SCALEDVAL = 5630
+let FIRE4PT3_SCALEDVAL = 5690
+let FIRE5PT3_SCALEDVAL = 5750
+let FIRE6PT3_SCALEDVAL = 5810
+
+let PURGE_PRESSURESP = 7572
+let INLET_PRESSURESP = 7574
+let LOOP_PRESSURESP = 7576
+let THRESHOLD_PRESSURESP = 7578
+let TEMPBLWL_PRESSURESP = 7580
+let TEMPABVH_PRESSURESP = 7582
+let AIRSUPPLYBLWL_PRESSURESP = 7584
+
+let HCP_SYSSTATUS = 7570
+let HCP_VALVE1STATUS = 7572

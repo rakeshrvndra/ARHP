@@ -1,0 +1,66 @@
+//
+//  FogSpecs.swift
+//  iPadControls
+//
+//  Created by Jan Manalo on 9/10/18.
+//  Copyright © 2018 WET. All rights reserved.
+//
+
+import Foundation
+
+/***************************************************************************
+ * Section  :  FOG SPECS
+ * Comments :  Use this file to change and write the correct address
+ ***************************************************************************/
+
+let FIREPT1_SCALEDMAX = 5504
+let FIREPT1_SCALEDMIN = 5502
+let FIREPT2_SCALEDMAX = 5514
+let FIREPT2_SCALEDMIN = 5512
+let FIREPT3_SCALEDMAX = 5524
+let FIREPT3_SCALEDMIN = 5522
+let FIRELEL1_SCALEDMAX = 5534
+let FIRELEL1_SCALEDMIN = 5532
+let FIRELEL2_SCALEDMAX = 5544
+let FIRELEL2_SCALEDMIN = 5542
+let O2_SCALEDMAX = 5554
+let O2_SCALEDMIN = 5552
+
+let FIREPT1102_SCALEDVAL = 5500
+let FIREPT1103_SCALEDVAL = 5510
+let FIREPT1104_SCALEDVAL = 5520
+let LEL1_SCALEDVAL = 5530
+let LEL2_SCALEDVAL = 5540
+let O2_SCALEDVAL = 5550
+
+let TYPE1FIRESHOT_H2 = 6000
+let TYPE2FIRESHOT_H2 = 6004
+let TYPE3FIRESHOT_H2 = 6008
+let TYPE4FIRESHOT_H2 = 6012
+let TYPE5FIRESHOT_H2 = 6016
+let TYPE6FIRESHOT_H2 = 6020
+
+let TYPE1FIRESHOT_N2 = 6002
+let TYPE2FIRESHOT_N2 = 6006
+let TYPE3FIRESHOT_N2 = 6010
+let TYPE4FIRESHOT_N2 = 6014
+let TYPE5FIRESHOT_N2 = 6018
+let TYPE6FIRESHOT_N2 = 6022
+
+let N2PURGEON_SP = 6024
+let N2PURGEOFF_SP = 6026
+
+let ANIMVALVEOPEN_TIMER = 6028
+
+let ZS1VALVESTATUS = 6040
+let ZS1ALARMSTATUS = 6055
+let ZS2ALARMSTATUS = 6140
+let ZSN2FLOW =  6075
+
+let ZS401HAND_CMD = 6065
+let ABORT_FIRE = 6034
+
+let N2_FLOW = 6070
+let KVx108_VALVE_OPENCMD = 6060
+
+let ZS401FIREDISB_CMD = 6105

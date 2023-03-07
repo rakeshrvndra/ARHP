@@ -42,14 +42,14 @@ function displaySchWrapper(){
 
     if ((current_time >= on_time)&&(current_time < off_time)){
         //turn ON
-        plc_client.writeSingleCoil(2117,1,function(resp){
+        plc_client.writeSingleCoil(2001,1,function(resp){
                     //watchDog.eventLog('Display Sch IF' +on_time +' off ' +off_time);
         });
 
     }
     else{
         //turn OFF
-        plc_client.writeSingleCoil(2117,0,function(resp){
+        plc_client.writeSingleCoil(2001,0,function(resp){
                     //watchDog.eventLog('Display Sch ELSE' +on_time +' off ' +off_time);
         });
 

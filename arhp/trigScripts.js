@@ -8,25 +8,16 @@ var timeKeeper_timer = require("./timeKeeper.js");
 
 var timedWatchDog_timer = require("./TimedWatchDog.js");
 var statusLog_timer = require("./statusLog.js");
-var purgesaltTimer = require("./sch_PurgeSalt.js");
 
-var windSpeedDayMode_timer = require("./windSpeedDayMode.js");
 var backwash_timer = require("./backwash.js");
-var back2wash_timer = require("./backwash2.js");
-var back3wash_timer = require("./backwash3.js");
 var runnel_timer = require("./sch_runnel.js");
 
 var waterQuality_timer = require("./waterQualityReadings.js");
-var dms = require("./demoTCPserver.js");
-var flog = require("./fireLogger.js");
 
-var pixie_timer = require("./sch_runnelLights.js");
 var filler_timer = require("./sch_FillerShows.js");
-var proj_timer = require("./sch_proj.js");
 var lights_timer = require("./sch_lights.js");
 var filter_timer = require("./sch_filter.js");
 var surge_timer = require("./sch_Surge.js");
-var pj_timer = require("./projTrial.js");
 var displayPumpSch_timer = require("./sch_displayPumps.js");
 
 if ((isBetween(msec,0,250)) || (isBetween(msec,250,500)) || (isBetween(msec,500,750)) || (isBetween(msec,750,999))){
@@ -47,7 +38,6 @@ if (isBetween(msec,250,500)){
 		//watchDog.eventLog('Hey! Execute BW');
 		backwash_timer();
 		filter_timer();
-		proj_timer();
 		surge_timer();
 		timerCount[1] = sec;
 	}
@@ -61,9 +51,6 @@ if (isBetween(msec,500,750)){
 		//watchDog.eventLog('Hey! Execute WQ');
 		waterQuality_timer();
 		runnel_timer();
-		flog();
-		back2wash_timer();
-		back3wash_timer();
 		timerCount[2] = sec;
 	}
 	else{
@@ -75,7 +62,6 @@ if (isBetween(msec,750,999)){
 	if (timerCount[3] != sec){
 		//watchDog.eventLog('Hey! Execute Wind');
 		if (sysStatus.length != 0){
-			//windSpeedDayMode_timer();
 			timerCount[3] = sec;
 		}
 	}
@@ -88,9 +74,6 @@ if ( (sec%2 === 0) && (isBetween(msec,0,250)) ){
 	if (timerCount[4] != sec){
 		//watchDog.eventLog('Hey! Execute ErrorLog');
 		lights_timer();
-		pixie_timer();
-		purgesaltTimer();
-		//pj_timer();
 		timerCount[4] = sec;
 	}
 	else{
@@ -102,7 +85,6 @@ if ( (sec%2 === 0) && (isBetween(msec,250,500)) ){
 	if (timerCount[5] != sec){
 		//watchDog.eventLog('Hey! Execute Lights');
 		if (sysStatus.length != 0){
-			// dms();
 			filler_timer();
 			displayPumpSch_timer();
 			timerCount[5] = sec;

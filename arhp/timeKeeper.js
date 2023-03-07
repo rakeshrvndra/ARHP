@@ -143,9 +143,7 @@ function timeKeeperWrapper(){
                             }
 
                             watchDog.eventLog("About to Start Show #" + currentShow);
-                            if ((currentShow==3) || (currentShow==6) || (currentShow==9)){
-                                fireLog.fireEventLog('Playing Show #   ' +currentShow);  
-                            }
+                            
                             watchDog.eventLog("This is #" + manIndex +" show in the playlist #" +manFocus +"is a ShowType "+playlists[manFocus-1].contents[2] + "with PlayReg" +playTestReg);
 
                             spm_client.writeSingleRegister(1005,currentShow,function(resp){
@@ -191,7 +189,6 @@ function timeKeeperWrapper(){
                             jumpToStep_manual = 8;
                             manPlay = 0;
                             watchDog.eventLog("END OF THE SHOW : Playing Show 0");
-                            fireLog.fireEventLog("END OF THE SHOW : Playing Show 0");
                         });
                     });
                 });
@@ -210,7 +207,6 @@ function timeKeeperWrapper(){
                         spm_client.writeSingleRegister(1004,8,function(resp){
                             jumpToStep_manual = 8;
                             watchDog.eventLog("iPAD User press STOP Button: Playing Show 0");
-                            fireLog.fireEventLog("STOPPED SHOW : Playing Show 0");
                         });
                     });
                 }); 
@@ -363,9 +359,6 @@ function timeKeeperWrapper(){
 
                     //watchDog.eventLog("jumpToStep_auto is " + jumpToStep_auto);
                     watchDog.eventLog("About to Start Show # " + currentShow);
-                    if ((currentShow==3) || (currentShow==6) || (currentShow==9)){
-                        fireLog.fireEventLog('Playing Show #   ' +currentShow);  
-                    }
                     CALLED_CONDITION_1 = 0;
                     deadMan = 0;
                     //Issue the SPM to Play SHOW
@@ -444,7 +437,6 @@ function timeKeeperWrapper(){
                             jumpToStep_manual = 0;
                             idleState_Counter = 0;
                             watchDog.eventLog("END LOGIC: Gap in scheduled shows. Playing Show 0.");
-                            fireLog.fireEventLog("END OF THE SHOW : Playing Show 0");
                         });
                     });
                 });
@@ -585,66 +577,23 @@ function timeKeeperWrapper(){
     //Check SPM Connection
 
     //Check PLC Connection
-    // if(PLC_Heartbeat == 2){
-    //     plc_client.readHoldingRegister(1,1,function(resp){
-    //         PLC_Heartbeat = 0; //check again in the next scan
-    //         PLCConnected = true;       
-    //     });
-    //     PLC_Heartbeat = 3;
-    // }
-    // else{
-    //     PLC_Heartbeat++;
-    // }
-
-    // if(PLC_Heartbeat==9){
-    //     if (PLCConnected){
-    //         watchDog.eventLog('TK:PLC MODBUS CONNECTION FAILED');
-    //     }//log it only once
-    //     PLCConnected = false;
-    // }
-    
-
-    if(PLC_Heartbeat < 25){
-        plc_client.readCoils(504,1,function(resp){
-            // watchDog.eventLog('M2 value '+resp.coils[0]);
-            if (resp.coils[0]){
-                PLC_Heartbeat++;
-                PLCConnected = true;
-                //watchDog.eventLog('M2 value after read 1 '+resp.coils[0]);  
-                if(PLC_Heartbeat>23){
-                    watchDog.eventLog('TK:PLC MODBUS CONNECTION FAILED');
-                    PLCConnected = false;
-                    PLC_Heartbeat = 0;
-                } 
-            } else {
-                PLC_Heartbeat = 0; //check again in the next scan
-                PLCConnected = true;   
-                plc_client.writeSingleCoil(504,1,function(resp){});  
-                // watchDog.eventLog('M2 value after read 0 '+resp.coils[0]);  
-            }
+    if(PLC_Heartbeat == 2){
+        plc_client.readHoldingRegister(1,1,function(resp){
+            PLC_Heartbeat = 0; //check again in the next scan
+            PLCConnected = true;       
         });
-    } 
+        PLC_Heartbeat = 3;
+    }
+    else{
+        PLC_Heartbeat++;
+    }
 
-    if(NOE_Heartbeat < 15){
-        noe_client.readCoils(505,1,function(resp){
-            // watchDog.eventLog('M2 value '+resp.coils[0]);
-            if (resp.coils[0]){
-                NOE_Heartbeat++;
-                NOEConnected = true;
-                //watchDog.eventLog('M2 value after read 1 '+resp.coils[0]);  
-                if(NOE_Heartbeat>13){
-                    watchDog.eventLog('TK:NOE MODBUS CONNECTION FAILED');
-                    NOEConnected = false;
-                    NOE_Heartbeat = 0;
-                } 
-            } else {
-                NOE_Heartbeat = 0; //check again in the next scan
-                NOEConnected = true;   
-                noe_client.writeSingleCoil(505,1,function(resp){});  
-                // watchDog.eventLog('M2 value after read 0 '+resp.coils[0]);  
-            }
-        });
-    } 
+    if(PLC_Heartbeat==9){
+        if (PLCConnected){
+            watchDog.eventLog('TK:PLC MODBUS CONNECTION FAILED');
+        }//log it only once
+        PLCConnected = false;
+    }
 
     // plc_client.readCoils(700,1,function(resp){
     //    var m7Bit = resp.coils[0];
@@ -665,21 +614,6 @@ function timeKeeperWrapper(){
     //     }); 
     //     if (PLC_702Heartbeat>40){
     //         PLC_702Heartbeat = 0;
-    //     }
-    // }
-
-    // if(PLC_704Heartbeat < 20){
-    //     noe_client.writeSingleCoil(704,0,function(resp){
-    //          watchDog.eventLog('Write M704 value 0');
-    //     }); 
-    //     PLC_704Heartbeat++;
-    // } else {
-    //     PLC_704Heartbeat++;
-    //     noe_client.writeSingleCoil(704,1,function(resp){
-    //         watchDog.eventLog('Write M704 value 1');
-    //     }); 
-    //     if (PLC_704Heartbeat>40){
-    //         PLC_704Heartbeat = 0;
     //     }
     // }
     //Check PLC Connection
@@ -717,42 +651,75 @@ spm_client.readHoldingRegister(2000,2,function(resp){
     spmRATMode = nthBit(resp.register[0],8);
     dayModeStatus = nthBit(resp.register[1],7);
     showPlayingBit = nthBit(resp.register[0],4);
-    plc_client.readCoils(9000,17,function(resp){
+    plc_client.readCoils(801,4,function(resp){
         
         if (resp != undefined && resp != null){
-            windHi = resp.coils[4] || resp.coils[10] || resp.coils[16];
-            windLo = resp.coils[3] || resp.coils[9] || resp.coils[15];
-            windNo = resp.coils[2] || resp.coils[8] || resp.coils[14];
+            windHi = resp.coils[0];
+            windMed = resp.coils[1];
+            windLo = resp.coils[2];
+            windNo = resp.coils[3];
         }
     });//end of first PLC modbus call
+    plc_client.readHoldingRegister(810,1,function(resp){
+       if (resp != undefined && resp != null){
+          windHA = resp.register[0];
+          // watchDog.eventLog('MW2204 Fire Spire 1 Current Val:: ' +resp.register[1]);
+
+        }
+    }); 
     //watchDog.eventLog('DayMode '+dayModeStatus); 
-    if (dayModeStatus===1){
-        if(windHi==1){
-            spm_client.writeSingleRegister(1002,20,function(resp){}); 
-            //watchDog.eventLog('SPM set to High Wind and DayMode 1');  
-        } else if(windLo==1){
-            spm_client.writeSingleRegister(1002,17,function(resp){}); 
-            //watchDog.eventLog('SPM set to Low Wind and DayMode 1');  
-        } else if(windNo==1){
-            spm_client.writeSingleRegister(1002,16,function(resp){}); 
-            //watchDog.eventLog('SPM set to No Wind and DayMode 1');    
-        } 
+    if (windHA == 0){
+        if (dayModeStatus===1){
+            if(windHi==1){
+                spm_client.writeSingleRegister(1002,20,function(resp){}); 
+                //watchDog.eventLog('SPM set to High Wind and DayMode 1');  
+            } else if(windMed==1){
+                spm_client.writeSingleRegister(1002,18,function(resp){}); 
+                //watchDog.eventLog('SPM set to Low Wind and DayMode 1');  
+            } else if(windLo==1){
+                spm_client.writeSingleRegister(1002,17,function(resp){}); 
+                //watchDog.eventLog('SPM set to Low Wind and DayMode 1');  
+            } else if(windNo==1){
+                spm_client.writeSingleRegister(1002,16,function(resp){}); 
+                //watchDog.eventLog('SPM set to No Wind and DayMode 1');    
+            } 
+        } else {
+            if(windHi==1){
+                spm_client.writeSingleRegister(1002,4,function(resp){}); 
+                //watchDog.eventLog('SPM set to High Wind and DayMode 0');  
+            } else if(windMed==1){
+                spm_client.writeSingleRegister(1002,2,function(resp){}); 
+                //watchDog.eventLog('SPM set to Low Wind and DayMode 1');  
+            } else if(windLo==1){
+                spm_client.writeSingleRegister(1002,1,function(resp){}); 
+                //watchDog.eventLog('SPM set to Low Wind and DayMode 0');  
+            } else if(windNo==1){
+                spm_client.writeSingleRegister(1002,0,function(resp){}); 
+                //watchDog.eventLog('SPM set to Med Wind and DayMode 0');    
+            } 
+        }
     } else {
-        if(windHi==1){
-            spm_client.writeSingleRegister(1002,4,function(resp){}); 
-            //watchDog.eventLog('SPM set to High Wind and DayMode 0');  
-        } else if(windLo==1){
-            spm_client.writeSingleRegister(1002,1,function(resp){}); 
-            //watchDog.eventLog('SPM set to Low Wind and DayMode 0');  
-        } else if(windNo==1){
-            spm_client.writeSingleRegister(1002,0,function(resp){}); 
-            //watchDog.eventLog('SPM set to Med Wind and DayMode 0');    
-        } 
+        plc_client.readHoldingRegister(840,1,function(resp){
+          if (resp != undefined && resp != null){
+
+               var spmWindMde = resp.register[0];
+               if (spmWindMde == 1){
+                  spm_client.writeSingleRegister(1002,0,function(resp){});
+               }
+               if (spmWindMde == 2){
+                  spm_client.writeSingleRegister(1002,1,function(resp){});
+               }
+               if (spmWindMde == 3){
+                  spm_client.writeSingleRegister(1002,2,function(resp){});
+               }
+               if (spmWindMde == 4){
+                  spm_client.writeSingleRegister(1002,4,function(resp){});
+               }
+          }      
+        });
     }
     //plc_client.writeSingleCoil(501,spmRATMode,function(resp){});
-    purgeData.canPurgeSeqRun = showPlayingBit;
-    //watchDog.eventLog('SPM to PLC Send: showPlayBit ' +purgeData.canPurgeSeqRun); 
-    noe_client.writeSingleCoil(3,showPlayingBit,function(resp){
+    plc_client.writeSingleCoil(3,(showPlayingBit || spmRATMode),function(resp){
        //watchDog.eventLog('SPM to PLC Send: showPlayBit ' +showPlayingBit); 
     });
     //watchDog.eventLog('Play Status: ' +nthBit(resp.register[0],4) );
@@ -777,129 +744,31 @@ spm_client.readHoldingRegister(2000,2,function(resp){
 // bit 14   - Fire Spire 5 Anim 
 // bit 15   - Fire Spire 6 Anim 
     
-spm_client.readHoldingRegister(2005,1,function(resp)
-{
-    var spm_data_2005 = resp.register[0];
-    if (spm_data_2005 == spmTempData){
+// spm_client.readHoldingRegister(2005,1,function(resp)
+// {
+//     var spm_data_2005 = resp.register[0];
+//     if (spm_data_2005 == spmTempData){
 
-    } else {
-        spmTempData = spm_data_2005;
-        noe_client.writeSingleRegister(2203,spm_data_2005,function(resp){
-            watchDog.eventLog('SPM to PLC Send: SPM_Data: ' +spm_data_2005);
-            noe_client.readHoldingRegister(2203,7,function(resp){
-               if (resp != undefined && resp != null){
-                  var spmData = resp.register[0]; 
-                  watchDog.eventLog('MW2203 SPM Data Current Val:: ' +resp.register[0]);
-                  // watchDog.eventLog('MW2204 Fire Spire 1 Current Val:: ' +resp.register[1]);
-                  // watchDog.eventLog('MW2205 Fire Spire 2 Current Val:: ' +resp.register[2]);
-                  // watchDog.eventLog('MW2206 Fire Spire 3 Current Val:: ' +resp.register[3]);
-                  // watchDog.eventLog('MW2207 Fire Spire 4 Current Val:: ' +resp.register[4]);
-                  // watchDog.eventLog('MW2208 Fire Spire 5 Current Val:: ' +resp.register[5]);
-                  // watchDog.eventLog('MW2209 Fire Spire 6 Current Val:: ' +resp.register[6]);
-                }
-            }); 
-        });
-    }
-    noe_client.writeSingleRegister(2203,spm_data_2005,function(resp){
-           // watchDog.eventLog('SPM to PLC Send: SPM_Data: ' +spm_data_2005);
-    });
-    // var audMu = nthBit(resp.register[0],0);
-    // var lightOn = nthBit(resp.register[0],1);
-    // var fireEn = nthBit(resp.register[0],2);
-    // var fogEn = nthBit(resp.register[0],3);
-    // var fireSp1 = nthBit(resp.register[0],4);
-    // var fireSp2 = nthBit(resp.register[0],5);
-    // var fireSp3 = nthBit(resp.register[0],6);
-    // var fireSp4 = nthBit(resp.register[0],7);
-    // var fireSp5 = nthBit(resp.register[0],8);
-    // var fireSp6 = nthBit(resp.register[0],9);
-    // var fireSp1En = nthBit(resp.register[0],10);
-    // var fireSp2En = nthBit(resp.register[0],11);
-    // var fireSp3En = nthBit(resp.register[0],12);
-    // var fireSp4En = nthBit(resp.register[0],13);
-    // var fireSp5En = nthBit(resp.register[0],14);
-    // var fireSp6En = nthBit(resp.register[0],15);
-
-    // watchDog.eventLog('audMu ' +audMu); 
-    // watchDog.eventLog('lightOn ' +lightOn); 
-    // watchDog.eventLog('fireEn ' +fireEn); 
-    // watchDog.eventLog('fogEn ' +fogEn); 
-    // watchDog.eventLog('fireSp1 ' +fireSp1); 
-    // watchDog.eventLog('fireSp2 ' +fireSp2); 
-    // watchDog.eventLog('fireSp3 ' +fireSp3); 
-    // watchDog.eventLog('fireSp4 ' +fireSp4); 
-    // watchDog.eventLog('fireSp5 ' +fireSp5); 
-    // watchDog.eventLog('fireSp6 ' +fireSp6); 
-    // watchDog.eventLog('fireSp1En ' +fireSp1En); 
-    // watchDog.eventLog('fireSp2En ' +fireSp2En); 
-    // watchDog.eventLog('fireSp3En ' +fireSp3En); 
-    // watchDog.eventLog('fireSp4En ' +fireSp4En); 
-    // watchDog.eventLog('fireSp5En ' +fireSp5En); 
-    // watchDog.eventLog('fireSp6En ' +fireSp6En); 
-    // plc_client.writeSingleCoil(506,fireEn,function(resp){
-    //         watchDog.eventLog('SPM to PLC Send: fireEn ' +fireEn); 
-    // });
+//     } else {
+//         spmTempData = spm_data_2005;
+//         plc_client.writeSingleRegister(2203,spm_data_2005,function(resp){
+//             watchDog.eventLog('SPM to PLC Send: SPM_Data: ' +spm_data_2005);
+//             // plc_client.readHoldingRegister(2203,7,function(resp){
+//             //    if (resp != undefined && resp != null){
+//             //       var spmData = resp.register[0]; 
+//             //       watchDog.eventLog('MW2203 SPM Data Current Val:: ' +resp.register[0]);
+//             //       // watchDog.eventLog('MW2204 Fire Spire 1 Current Val:: ' +resp.register[1]);
+//             //       // watchDog.eventLog('MW2205 Fire Spire 2 Current Val:: ' +resp.register[2]);
+//             //       // watchDog.eventLog('MW2206 Fire Spire 3 Current Val:: ' +resp.register[3]);
+//             //       // watchDog.eventLog('MW2207 Fire Spire 4 Current Val:: ' +resp.register[4]);
+//             //       // watchDog.eventLog('MW2208 Fire Spire 5 Current Val:: ' +resp.register[5]);
+//             //       // watchDog.eventLog('MW2209 Fire Spire 6 Current Val:: ' +resp.register[6]);
+//             //     }
+//             // }); 
+//         });
+//     }
     
-}); 
-
-plc_client.readHoldingRegister(6055,6,function(resp){
-      if (resp != undefined && resp != null){
-        var flameSp1 = nthBit(resp.register[0],2);
-        var flameSp2 = nthBit(resp.register[1],2);
-        var flameSp3 = nthBit(resp.register[2],2);
-        var flameSp4 = nthBit(resp.register[3],2);
-        var flameSp5 = nthBit(resp.register[4],2);
-        var flameSp6 = nthBit(resp.register[5],2);
-            if (flameSp1 == tempflameSp1){
-
-            }  else {
-               tempflameSp1 = flameSp1;
-               watchDog.eventLog('FlameDetected 1:: ' +tempflameSp1);     
-            }
-            if (flameSp2 == tempflameSp2){
-
-            }  else {
-               tempflameSp2 = flameSp2;
-               watchDog.eventLog('FlameDetected 2:: ' +tempflameSp2);     
-            }
-            if (flameSp3 == tempflameSp3){
-
-            }  else {
-               tempflameSp3 = flameSp3;
-               watchDog.eventLog('FlameDetected 3:: ' +tempflameSp3);     
-            }
-            if (flameSp4 == tempflameSp4){
-
-            }  else {
-               tempflameSp4 = flameSp4;
-               watchDog.eventLog('FlameDetected 4:: ' +tempflameSp4);     
-            }
-            if (flameSp5 == tempflameSp5){
-
-            }  else {
-               tempflameSp5 = flameSp5;
-               watchDog.eventLog('FlameDetected 5:: ' +tempflameSp5);     
-            }
-            if (flameSp6 == tempflameSp6){
-
-            }  else {
-               tempflameSp6 = flameSp6;
-               watchDog.eventLog('FlameDetected 6:: ' +tempflameSp6);     
-            }
-        }
-}); 
-
-noe_client.readHoldingRegister(2203,1,function(resp){
-      if (resp != undefined && resp != null){
-        var spmData = resp.register[0]; 
-            if (spmData == spmPLCData){
-
-            }  else {
-               spmPLCData = spmData;
-               watchDog.eventLog('PLC Read spmData:: ' +spmData);     
-            }
-        }
-}); 
+// });  
 }
 
 //==== Return the value of the b-th of n 

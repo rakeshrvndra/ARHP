@@ -19,18 +19,15 @@ var triggerScripts = require("./trigScripts.js");
 fs = require("fs");
 jsModbus = require("./Includes/jsModbus");
 watchDog = require("./Includes/watchDog");
-fireLog = require("./Includes/fireLog");
 watchLog = require("./Includes/watchLog");
 
 //emailReq = require("./emailClient.js");
-projCmd = require("./projInterface.js");
-projReq = require("./projData.js");
 vfdCode = require("./vfdFaultcode.js");
 alphaconverter = require("./Includes/alphaconverter");
 //===============  Global Parameters
 
 homeD = __dirname;       //Location of the main scripts
-proj = 'EX20';    //display this on WatchDog. Also extracted from the folder name on the server    
+proj = 'ARHP';    //display this on WatchDog. Also extracted from the folder name on the server    
 timerCount = [0,0,0,0,0,0,0,0,0,0];
 sysStatus = [];          //Array that is displayed on Read ErrorLog - old
 devStatus = [];          //Array is used to compare with sysStatus to determine change in status
@@ -70,16 +67,11 @@ tempflameSp6=0;
 animValvePos = [];
 
 vfd1_faultCode = [];
-vfd2_faultCode = [];
-vfd3_faultCode = [];
 
 jumpToStep_auto=0;       //auto mode case 
 jumpToStep_manual=0;     //man mode case
 autoTimeout=0;           //timekeeper code to reset jumpToStep variables   
-currentShow=0;           //variable used in timekeeper to update the global variable show
-
-NOEConnected=false;
-NOE_Heartbeat=0;   
+currentShow=0;           //variable used in timekeeper to update the global variable show 
 
 PLCConnected=false;      //Server - PLC Modbus connection status 
 PLC_Heartbeat=0;         //Counter used to check Modbus connection with the PLC 
@@ -104,6 +96,8 @@ show0_endShow = 1;      // flag used to play show0 at the end
 windHi = 0;
 windLo = 0;
 windNo = 0;
+windMed = 0;
+windHA = 0;
 
 
 //===============  Time Sync related variable
@@ -154,18 +148,7 @@ filtrationPump_Status = 1; //1 - pump fault, 0 - good
 //plc_ip = 10.27.173.230 // Change these ip address when you deploy at site
 //spm_ip = 10.27.173.201
 
-bemop_client = jsModbus.createTCPClient(502,'10.0.4.234',function(err){
-    if(err)
-    {
-        watchDog.eventLog('BEM106 Modbus Connection Failed ');
-    }
-    else
-    {  
-        watchDog.eventLog('BEM106 Modbus Connection Success ');
-    }
-});
-
-plc_client = jsModbus.createTCPClient(502,'10.0.4.230',function(err){
+plc_client = jsModbus.createTCPClient(502,'10.0.4.231',function(err){
     if(err){
         watchDog.eventLog('PLC Modbus Connection Failed');
         PLCConnected=false;
@@ -173,17 +156,6 @@ plc_client = jsModbus.createTCPClient(502,'10.0.4.230',function(err){
     else{  
         watchDog.eventLog('PLC Modbus Connection Successful');
         PLCConnected=true;
-    }
-});
-
-noe_client = jsModbus.createTCPClient(502,'10.0.4.231',function(err){
-    if(err){
-        watchDog.eventLog('NOE Modbus Connection Failed');
-        NOEConnected=false;
-    }
-    else{  
-        watchDog.eventLog('NOE Modbus Connection Successful');
-        NOEConnected=true;
     }
 });
 
@@ -201,7 +173,6 @@ spm_client = jsModbus.createTCPClient(502,'10.0.4.201',function(err){
 //==================== User File Directories
 
 //Global Persistent Data
-prjTempData=riskyParse(fs.readFileSync(__dirname+'/UserFiles/temperatureData.txt','utf-8'));
 shows=riskyParse(fs.readFileSync(__dirname+'/UserFiles/shows.txt','utf-8'),'shows','showsBkp',1);
 tmpshows=riskyParse(fs.readFileSync(__dirname+'/UserFiles/shows.txt','utf-8'),'shows','showsBkp',1);
 playlists=riskyParse(fs.readFileSync(__dirname+'/UserFiles/playlists.txt','utf-8'),'playlists','playlistsBkp',1);
@@ -219,7 +190,6 @@ timetable=riskyParse(fs.readFileSync(__dirname+'/UserFiles/timetable.txt','utf-8
 lights=riskyParse(fs.readFileSync(__dirname+'/UserFiles/lights.txt','utf-8'),'lights','lightsBkp',1);
 
 filterSch=riskyParse(fs.readFileSync(__dirname+'/UserFiles/filterSch.txt','utf-8'),'filterSch','filterSchBkp',1);
-projSch=riskyParse(fs.readFileSync(__dirname+'/UserFiles/projSch.txt','utf-8'),'projSch','projSchBkp',1);
 runnelSch=riskyParse(fs.readFileSync(__dirname+'/UserFiles/runnelSch.txt','utf-8'),'runnelSch','runnelSchBkp',1);
 runnelLightSch=riskyParse(fs.readFileSync(__dirname+'/UserFiles/runnelLightSch.txt','utf-8'),'runnelLightSch','runnelLightSchBkp',1);
 displayPumpSch=riskyParse(fs.readFileSync(__dirname+'/UserFiles/displayPumpSch.txt','utf-8'),'displayPumpSch','displayPumpSchBkp',1);
@@ -229,11 +199,7 @@ windScalingData=riskyParse(fs.readFileSync(__dirname+'/UserFiles/windScalingData
 fillerShowSch = riskyParse(fs.readFileSync(__dirname+'/UserFiles/fillerShowSch.txt','utf-8'),'fillerShowSch','fillerShowSchBkp',1);
 fillerShow=riskyParse(fs.readFileSync(__dirname+'/UserFiles/fillerShow.txt','utf-8'),'fillerShow','fillerShowBkp',1);
 bwData=riskyParse(fs.readFileSync(__dirname+'/UserFiles/backwash.txt','utf-8'),'backwash','backwashBkp',1);
-bw2Data=riskyParse(fs.readFileSync(__dirname+'/UserFiles/backwashTwo.txt','utf-8'),'backwashTwo','backwashTwoBkp',1);
-bw3Data=riskyParse(fs.readFileSync(__dirname+'/UserFiles/backwashThree.txt','utf-8'),'backwashThree','backwashThreeBkp',1);
 bwData.SchBWStatus = 0;
-bw2Data.SchBWStatus = 0;
-bw3Data.SchBWStatus = 0;
 
 purgeData=riskyParse(fs.readFileSync(__dirname+'/UserFiles/purgeSch.txt','utf-8'),'purgeSch','purgeSchBkp',1);
 
@@ -288,206 +254,7 @@ function onRequest(request, response){
             var query = url.parse(request.url).query;
             var path = url.parse(request.url).pathname;
 
-            if (path === '/sendMirrCmd'){
-                //[10.0.4.236,1]
-                cmdFlag=1;
-                response.writeHead(200,{"Content-Type": "text"});
-                query = decodeURIComponent(query);
-                query = JSON.parse(query);
-                var pjIP = "";
-                switch (query[0]){
-                    case 1: pjIP = "10.0.6.101";
-                            break;
-                    case 2: pjIP = "10.0.6.103";
-                            break;
-                    case 3: pjIP = "10.0.6.105";
-                            break;
-                    case 4: pjIP = "10.0.6.107";
-                            break;
-                    case 5: pjIP = "10.0.6.109";
-                            break;
-                    case 6: pjIP = "10.0.6.111";
-                            break;
-                    case 7: pjIP = "10.0.6.113";
-                            break;
-                    case 8: pjIP = "10.0.6.115";
-                            break;
-                    case 9: pjIP = "10.0.6.117";
-                            break;
-                    case 10: pjIP = "10.0.6.119";
-                            break;
-                    case 11: pjIP = "10.0.6.121";
-                            break;
-                    case 12: pjIP = "10.0.6.123";
-                            break;
-                    case 13: pjIP = "10.0.6.125";
-                            break;
-                    case 14: pjIP = "10.0.6.127";
-                            break;
-                    case 15: pjIP = "10.0.6.129";
-                            break;
-                    case 16: pjIP = "10.0.6.131";
-                            break;
-                    case 17: pjIP = "10.0.6.133";
-                            break;
-                    case 18: pjIP = "10.0.6.135";
-                            break;
-                    case 19: pjIP = "10.0.6.137";
-                            break;
-                    case 20: pjIP = "10.0.6.139";
-                            break;
-                    case 21: pjIP = "10.0.6.141";
-                            break;
-                    default:
-                        watchDog.eventLog("Cmd Not Found");
-                }
-                projCmd(query[0],pjIP,query[1]);
-                watchDog.eventLog('Executing Proj Commands on Projector ID::  '+query[0]+'   @ BEM106 Projector IP ::  '+pjIP+'    with Command ::  '+query[1]);
-                response.end(JSON.stringify({"started": true}));  
-                setTimeout(function(){
-                    cmdFlag=0;
-                },75000); 
-            }else if (path === '/sendWall5Cmd'){
-                cmdFlag=1;
-                response.writeHead(200,{"Content-Type": "text"});
-                response.end(JSON.stringify({"started": true}));  
-                watchDog.eventLog('Wall1 --> Executed 1st Cmd: PRJ-301');
-                projCmd(1,"10.0.4.236",query);
-                setTimeout(function(){
-                    watchDog.eventLog('Wall1 --> Executed 2nd Cmd: PRJ-302');
-                    projCmd(2,"10.0.4.236",query-1);
-                    setTimeout(function(){
-                        watchDog.eventLog('Wall1 --> Executed 3rd Cmd: PRJ-303');
-                        projCmd(3,"10.0.4.236",query);
-                        setTimeout(function(){
-                            watchDog.eventLog('Wall1 --> Executed 4th Cmd: PRJ-304');
-                            projCmd(4,"10.0.4.236",query-1);
-                            setTimeout(function(){
-                                watchDog.eventLog('Wall1 --> Executed 5th Cmd: PRJ-205');
-                                projCmd(5,"10.0.4.236",query);
-                                setTimeout(function(){
-                                    watchDog.eventLog('Wall1 --> Executed 6th Cmd: PRJ-206');
-                                    projCmd(6,"10.0.4.236",query-1);
-                                    setTimeout(function(){
-                                        watchDog.eventLog('Wall1 --> Executed 7th Cmd: PRJ-207');
-                                        projCmd(7,"10.0.4.236",query);
-                                        cmdFlag=0;
-                                    },75000);
-                                },75000);
-                            },75000);
-                        },75000);
-                    },75000);
-                },75000);  
-            }else if (path === '/sendWall1Cmd'){
-                cmdFlag=1;
-                response.writeHead(200,{"Content-Type": "text"});
-                response.end(JSON.stringify({"started": true}));  
-                watchDog.eventLog('Wall1 --> Executed 1st Cmd: PRJ-301');
-                projCmd(15,"10.0.6.129",query);
-                setTimeout(function(){
-                    watchDog.eventLog('Wall1 --> Executed 2nd Cmd: PRJ-302');
-                    projCmd(16,"10.0.6.131",query);
-                    setTimeout(function(){
-                        watchDog.eventLog('Wall1 --> Executed 3rd Cmd: PRJ-303');
-                        projCmd(17,"10.0.6.133",query);
-                        setTimeout(function(){
-                            watchDog.eventLog('Wall1 --> Executed 4th Cmd: PRJ-304');
-                            projCmd(18,"10.0.6.135",query);
-                            setTimeout(function(){
-                                watchDog.eventLog('Wall1 --> Executed 5th Cmd: PRJ-205');
-                                projCmd(12,"10.0.6.123",query);
-                                setTimeout(function(){
-                                    watchDog.eventLog('Wall1 --> Executed 6th Cmd: PRJ-206');
-                                    projCmd(13,"10.0.6.125",query);
-                                    setTimeout(function(){
-                                        watchDog.eventLog('Wall1 --> Executed 7th Cmd: PRJ-207');
-                                        projCmd(14,"10.0.6.127",query);
-                                         cmdFlag=0;
-                                    },75000);
-                                },75000);
-                            },75000);
-                        },75000);
-                    },75000);
-                },75000);  
-            }else if (path === '/sendWall2Cmd'){
-                cmdFlag=1;
-                response.writeHead(200,{"Content-Type": "text"});
-                response.end(JSON.stringify({"started": true}));  
-                watchDog.eventLog('Wall2 --> Executed 1st Cmd: PRJ-101');
-                projCmd(1,"10.0.6.101",query);
-                setTimeout(function(){
-                    watchDog.eventLog('Wall2 --> Executed 2nd Cmd: PRJ-102');
-                    projCmd(2,"10.0.6.103",query);
-                    setTimeout(function(){
-                        watchDog.eventLog('Wall2 --> Executed 3rd Cmd: PRJ-103');
-                        projCmd(3,"10.0.6.105",query);
-                        setTimeout(function(){
-                            watchDog.eventLog('Wall2 --> Executed 4th Cmd: PRJ-104');
-                            projCmd(4,"10.0.6.107",query);
-                            setTimeout(function(){
-                                watchDog.eventLog('Wall2 --> Executed 5th Cmd: PRJ-305');
-                                projCmd(19,"10.0.6.137",query);
-                                setTimeout(function(){
-                                    watchDog.eventLog('Wall2 --> Executed 6th Cmd: PRJ-306');
-                                    projCmd(20,"10.0.6.139",query);
-                                    setTimeout(function(){
-                                        watchDog.eventLog('Wall2 --> Executed 7th Cmd: PRJ-307');
-                                        projCmd(21,"10.0.6.141",query);
-                                        cmdFlag=0;
-                                    },75000);
-                                },75000);
-                            },75000);
-                        },75000);
-                    },75000);
-                },75000);  
-            }else if (path === '/sendWall3Cmd'){
-                cmdFlag=1;
-                response.writeHead(200,{"Content-Type": "text"});
-                response.end(JSON.stringify({"started": true}));  
-                watchDog.eventLog('Wall3 --> Executed 1st Cmd: PRJ-201');
-                projCmd(8,"10.0.6.115",query);
-                setTimeout(function(){
-                    watchDog.eventLog('Wall3 --> Executed 2nd Cmd: PRJ-202');
-                    projCmd(9,"10.0.6.117",query);
-                    setTimeout(function(){
-                        watchDog.eventLog('Wall3 --> Executed 3rd Cmd: PRJ-203');
-                        projCmd(10,"10.0.6.119",query);
-                        setTimeout(function(){
-                            watchDog.eventLog('Wall3 --> Executed 4th Cmd: PRJ-204');
-                            projCmd(11,"10.0.6.121",query);
-                            setTimeout(function(){
-                                watchDog.eventLog('Wall3 --> Executed 5th Cmd: PRJ-105');
-                                projCmd(5,"10.0.6.109",query);
-                                setTimeout(function(){
-                                    watchDog.eventLog('Wall3 --> Executed 6th Cmd: PRJ-106');
-                                    projCmd(6,"10.0.6.111",query);
-                                    setTimeout(function(){
-                                        watchDog.eventLog('Wall3 --> Executed 7th Cmd: PRJ-107');
-                                        projCmd(7,"10.0.6.113",query);
-                                        cmdFlag=0;
-                                    },75000);
-                                },75000);
-                            },75000);
-                        },75000);
-                    },75000);
-                },75000);  
-            }else if (path === '/sendProjLogCmds'){
-                //projReq.sendPacketToProjectors(1,1);
-                response.writeHead(200,{"Content-Type": "text"});
-                query = decodeURIComponent(query);
-                query = JSON.parse(query);
-                projReq.sendPacketToProjectors(query[0],query[1]);
-                watchDog.eventLog('Executing Proj Commands on Projector ID::  '+query[1]+'   Sending Command ::  '+query[0]);
-                // for(var i = 1; i < 22; i++){
-                //       projReq.sendPacketToProjectors(1,i);
-                // }
-                // setTimeout(function(){
-                //     //watchDog.eventLog("Prj Data is :: "+JSON.stringify(prj));
-                //    fs.writeFileSync(__dirname+'/UserFiles/temperatureData.txt',JSON.stringify(prj),'utf-8');
-                // },20000);
-                response.end(JSON.stringify("Done"));
-            
-            }else if (path === '/readStatusLog'){
+        if (path === '/readStatusLog'){
             
                 response.writeHead(200,{"Content-Type": "text"});
                 response.end(JSON.stringify(sysStatus)); 
@@ -509,34 +276,34 @@ function onRequest(request, response){
                 setCSSch(query);
                 response.end(JSON.stringify(cascadePumpSch));
 
-            }else if (path === '/readSurgePumpSch'){
+            }else if (path === '/readRRPumpSch'){
             
                 response.writeHead(200,{"Content-Type": "text"});
                 response.end(JSON.stringify(surgeSch));
             
-            }else if (path === '/writeSurgePumpSch'){
+            }else if (path === '/writeRRPumpSch'){
                 // Write Microshooter Basin Pump Scheduler
                 response.writeHead(200,{"Content-Type": "text"});
                 setSurgeSch(query);
                 response.end(JSON.stringify(surgeSch));
 
-            }else if (path === '/readRunnelPumpSch'){
+            }else if (path === '/readGlassWWPumpSch'){
             
                 response.writeHead(200,{"Content-Type": "text"});
                 response.end(JSON.stringify(runnelSch));
             
-            }else if (path === '/writeRunnelPumpSch'){
+            }else if (path === '/writeGlassWWPumpSch'){
                 // Write Microshooter Basin Pump Scheduler
                 response.writeHead(200,{"Content-Type": "text"});
                 setRunnelSch(query);
                 response.end(JSON.stringify(runnelSch));
 
-            }else if (path === '/readDisplayPumpSch'){
+            }else if (path === '/readWWPumpSch'){
             
                 response.writeHead(200,{"Content-Type": "text"});
                 response.end(JSON.stringify(displayPumpSch));
             
-            }else if (path === '/writeDisplayPumpSch'){
+            }else if (path === '/writeWWPumpSch'){
                 // Write Microshooter Basin Pump Scheduler
                 response.writeHead(200,{"Content-Type": "text"});
                 setDispSch(query);
@@ -586,17 +353,6 @@ function onRequest(request, response){
                 setFillerShowSch(query);
                 response.end(JSON.stringify(fillerShowSch));
 
-            }else if (path === '/readPrjSch'){
-            
-                response.writeHead(200,{"Content-Type": "text"});
-                response.end(JSON.stringify(projSch));
-            
-            }else if (path === '/writePrjSch'){
-            
-                response.writeHead(200,{"Content-Type": "text"});
-                setProj(query);
-                response.end(JSON.stringify(projSch));
-            
             }else if (path === '/readRunnelLights'){
             
                 response.writeHead(200,{"Content-Type": "text"});
@@ -607,12 +363,6 @@ function onRequest(request, response){
                 response.writeHead(200,{"Content-Type": "text"});
                 setPixieSch(query);
                 response.end(JSON.stringify(runnelLightSch));
-            
-            }else if (path === '/readPrjTempData'){
-            
-                response.writeHead(200,{"Content-Type": "text"});
-                prjTempData=riskyParse(fs.readFileSync(__dirname+'/UserFiles/temperatureData.txt','utf-8'));
-                response.end(JSON.stringify(prjTempData));
             
             }else if (path === '/readLights'){
             
@@ -909,12 +659,6 @@ function onRequest(request, response){
                 sysDataLog=fs.readFileSync(__dirname+'/UserFiles/systemLog.txt','utf-8');
                 response.writeHead(200,{"Content-Type": "text"});
                 response.end(JSON.stringify(sysDataLog));
-            }else if (path === '/readPrjLog'){
-                projDataLog=fs.readFileSync(__dirname+'/UserFiles/projData.txt','utf-8');
-                projDataLog = projDataLog.replace(/[\"]/g, "'").replace(/\n/g, "??");
-                response.writeHead(200,{"Content-Type": "text"});
-                response.write("<script type='text/javascript'>var str = \"<p>"+ projDataLog +"</p>\"; var res = str.split('??').reverse().join('</p><p>'); document.write(res);</script>");
-                response.end();
             }else if (path === '/readWetNodeError'){
 
                 getWetNodeError(query,function(err,data){
@@ -941,7 +685,6 @@ function onRequest(request, response){
                     '<br>' +
                     '<br>PLC-MB? <strong>'+PLCConnected+'</strong>' + '<input type=\'button\' onclick=\"location.href=\'/plcTest\';\" value=\'PLC Test\' />'+
                     '<br>SPM-MB? <strong>'+spm_client.isConnected()+'</strong>'+
-                    '<br>NOE-MB? <strong>'+NOEConnected+'</strong>'+
                     '<br>' +
                     '<br><input type=\'button\' onclick=\"location.href=\'/startShowScanner\';\" value=\'ScanSPMShows\' />' +
                     '<input type=\'button\' onclick=\"location.href=\'/showScannerStatus\';\" value=\'ScanStatus\' /><br>' +
@@ -1324,20 +1067,6 @@ function setLights(query){
     }
 }
 
-function setProj(query){
-
-    query = decodeURIComponent(query);
-    var buf = riskyParse(query,'setProj');
-
-    if((buf !== 0) && (buf.length == projSch.length)) {
-        fs.writeFileSync(__dirname+'/UserFiles/projSch.txt',query,'utf-8');
-        fs.writeFileSync(__dirname+'/UserFiles/projSchBkp.txt',query,'utf-8');
-        projSch = buf;
-    }
-    else{
-        watchDog.eventLog('Lights. Bad data. No donut for you.');
-    }
-}
 
 function setOarsmanLights(query){
 

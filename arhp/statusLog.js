@@ -22,48 +22,6 @@ function statusLogWrapper(){
     
 if (PLCConnected){
 
-     plc_client.readHoldingRegister(6040,6,function(resp){
-      if (resp != undefined && resp != null){
-        var spire1Status = nthBit(resp.register[0],8);  //Animation Valve Spire 1
-        var spire2Status = nthBit(resp.register[1],8);  //Animation Valve Spire 2
-        var spire3Status = nthBit(resp.register[2],8);  //Animation Valve Spire 3
-        var spire4Status = nthBit(resp.register[3],8);  //Animation Valve Spire 4
-        var spire5Status = nthBit(resp.register[4],8);  //Animation Valve Spire 5
-        var spire6Status = nthBit(resp.register[5],8);  //Animation Valve Spire 6
-
-        if(printForUpdatedValue(animValvePos[0],spire1Status)){
-           animValvePos[0] = spire1Status;
-           fireLog.fireEventLog('Animation Valve YV-1101 Position :: ' +animValvePos[0]);  
-        }
-
-        if(printForUpdatedValue(animValvePos[1],spire1Status)){
-           animValvePos[1] = spire2Status;
-           fireLog.fireEventLog('Animation Valve YV-2101 Position :: ' +animValvePos[1]);  
-        }
-
-        if(printForUpdatedValue(animValvePos[2],spire1Status)){
-           animValvePos[2] = spire3Status;
-           fireLog.fireEventLog('Animation Valve YV-3101 Position :: ' +animValvePos[2]);  
-        }
-
-        if(printForUpdatedValue(animValvePos[3],spire1Status)){
-           animValvePos[3] = spire4Status;
-           fireLog.fireEventLog('Animation Valve YV-4101 Position :: ' +animValvePos[3]);  
-        }
-
-        if(printForUpdatedValue(animValvePos[4],spire1Status)){
-           animValvePos[4] = spire5Status;
-           fireLog.fireEventLog('Animation Valve YV-5101 Position :: ' +animValvePos[4]);  
-        }
-
-        if(printForUpdatedValue(animValvePos[5],spire1Status)){
-           animValvePos[5] = spire6Status;
-           fireLog.fireEventLog('Animation Valve YV-6101 Position :: ' +animValvePos[5]);  
-        }
-
-      }      
-    });
-
      plc_client.readHoldingRegister(1006,113,function(resp){
       if (resp != undefined && resp != null){
         
@@ -114,351 +72,6 @@ if (PLCConnected){
 
       }      
     });
-
-    plc_client.readHoldingRegister(1286,113,function(resp){
-      if (resp != undefined && resp != null){
-        
-        //P201
-        if(checkUpdatedValue(vfd2_faultCode[0],resp.register[0],201)){
-           vfd2_faultCode[0] = resp.register[0];
-        }
-
-        //P202
-        if(checkUpdatedValue(vfd2_faultCode[1],resp.register[14],202)){
-           vfd2_faultCode[1] = resp.register[14];
-        }
-
-        //P203
-        if(checkUpdatedValue(vfd2_faultCode[2],resp.register[28],203)){
-           vfd2_faultCode[2] = resp.register[28];
-        }
-
-        //P204
-        if(checkUpdatedValue(vfd2_faultCode[3],resp.register[42],204)){
-           vfd2_faultCode[3] = resp.register[42];
-        }
-
-        //P205
-        if(checkUpdatedValue(vfd2_faultCode[4],resp.register[56],205)){
-           vfd2_faultCode[4] = resp.register[56];
-        }
-
-        //P206
-        if(checkUpdatedValue(vfd2_faultCode[5],resp.register[70],206)){
-           vfd2_faultCode[5] = resp.register[70];
-        }
-
-        //P207
-        if(checkUpdatedValue(vfd2_faultCode[6],resp.register[84],207)){
-           vfd2_faultCode[6] = resp.register[84];
-        }
-
-        //P208
-        if(checkUpdatedValue(vfd2_faultCode[7],resp.register[98],208)){
-           vfd2_faultCode[7] = resp.register[98];
-        }
-
-        //P209
-        if(checkUpdatedValue(vfd2_faultCode[8],resp.register[112],209)){
-           vfd2_faultCode[8] = resp.register[112];
-        }
-
-      }      
-    });
-
-    plc_client.readHoldingRegister(1426,113,function(resp){
-      if (resp != undefined && resp != null){
-
-        //P301
-        if(checkUpdatedValue(vfd3_faultCode[0],resp.register[0],301)){
-           vfd3_faultCode[0] = resp.register[0];
-        }
-
-        //P302
-        if(checkUpdatedValue(vfd3_faultCode[1],resp.register[14],302)){
-           vfd3_faultCode[1] = resp.register[14];
-        }
-
-        //P303
-        if(checkUpdatedValue(vfd3_faultCode[2],resp.register[28],303)){
-           vfd3_faultCode[2] = resp.register[28];
-        }
-
-        //P304
-        if(checkUpdatedValue(vfd3_faultCode[3],resp.register[42],304)){
-           vfd3_faultCode[3] = resp.register[42];
-        }
-
-        //P305
-        if(checkUpdatedValue(vfd3_faultCode[4],resp.register[56],305)){
-           vfd3_faultCode[4] = resp.register[56];
-        }
-
-        //P306
-        if(checkUpdatedValue(vfd3_faultCode[5],resp.register[70],306)){
-           vfd3_faultCode[5] = resp.register[70];
-        }
-
-        //P307
-        if(checkUpdatedValue(vfd3_faultCode[6],resp.register[84],307)){
-           vfd3_faultCode[6] = resp.register[84];
-        }
-
-        //P308
-        if(checkUpdatedValue(vfd3_faultCode[7],resp.register[98],308)){
-           vfd3_faultCode[7] = resp.register[98];
-        }
-
-        //P309
-        if(checkUpdatedValue(vfd3_faultCode[8],resp.register[112],309)){
-           vfd3_faultCode[8] = resp.register[112];
-        }
-      }      
-    });
-
-    plc_client.readCoils(8016,21,function(resp){
-        if (resp != undefined && resp != null){
-            //Projectors on Wall 1
-
-            if(checkUpdatedMirrPosValue(mirrorPos[0],resp.coils[7])){
-                mirrorPos[0]  = resp.coils[7];                //mirror Position for PRJ-101
-                if (mirrorPos[0]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 101. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,1);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 101. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,1);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[1],resp.coils[8])){
-                mirrorPos[1]  = resp.coils[8];                //mirror Position for PRJ-102
-                if (mirrorPos[1]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 102. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,2);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 102. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,2);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[2],resp.coils[9])){
-                mirrorPos[2]  = resp.coils[9];                //mirror Position for PRJ-103
-                if (mirrorPos[2]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 103. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,3);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 103. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,3);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[3],resp.coils[10])){
-                mirrorPos[3]  = resp.coils[10];               //mirror Position for PRJ-104
-                if (mirrorPos[3]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 104. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,4);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 104. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,4);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[4],resp.coils[18])){
-                mirrorPos[4]  = resp.coils[18];               //mirror Position for PRJ-105
-                if (mirrorPos[4]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 105. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,5);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 105. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,5);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[5],resp.coils[19])){
-                mirrorPos[5]  = resp.coils[19];               //mirror Position for PRJ-106
-                if (mirrorPos[5]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 106. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,6);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 106. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,6);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[6],resp.coils[20])){
-                mirrorPos[6]  = resp.coils[20];               //mirror Position for PRJ-107
-                if (mirrorPos[6]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 107. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,7);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 107. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,7);  //check status of Projector
-                    },1000);
-                }
-            }
-
-            //Projectors on Wall 2
-
-            if(checkUpdatedMirrPosValue(mirrorPos[7],resp.coils[14])){
-                mirrorPos[7]  = resp.coils[14];                //mirror Position for PRJ-201
-                if (mirrorPos[7]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 201. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,8);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 201. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,8);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[8],resp.coils[15])){
-                mirrorPos[8]  = resp.coils[15];                //mirror Position for PRJ-202
-                if (mirrorPos[8]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 202. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,9);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 202. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,9);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[9],resp.coils[16])){
-                mirrorPos[9]  = resp.coils[16];                //mirror Position for PRJ-203
-                if (mirrorPos[9]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 203. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,10);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 203. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,10);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[10],resp.coils[17])){
-                mirrorPos[10]  = resp.coils[17];               //mirror Position for PRJ-204
-                if (mirrorPos[10]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 204. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,11);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 204. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,11);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[11],resp.coils[4])){
-                mirrorPos[11]  = resp.coils[4];               //mirror Position for PRJ-205
-                if (mirrorPos[11]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 205. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,12);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 205. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,12);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[12],resp.coils[5])){
-                mirrorPos[12]  = resp.coils[5];               //mirror Position for PRJ-206
-                if (mirrorPos[12]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 206. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,13);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 206. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,13);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[13],resp.coils[6])){
-                mirrorPos[13]  = resp.coils[6];               //mirror Position for PRJ-207
-                if (mirrorPos[13]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 207. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,14);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 207. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,14);  //check status of Projector
-                    },1000);
-                }
-            }
-
-            //Projectors on Wall 3
-
-            if(checkUpdatedMirrPosValue(mirrorPos[14],resp.coils[0])){
-                mirrorPos[14]  = resp.coils[0];                //mirror Position for PRJ-301
-                if (mirrorPos[14]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 301. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,15);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 301. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,15);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[15],resp.coils[1])){
-                mirrorPos[15]  = resp.coils[1];                //mirror Position for PRJ-302
-                if (mirrorPos[15]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 302. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,16);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 302. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,16);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[16],resp.coils[2])){
-                mirrorPos[16]  = resp.coils[2];                //mirror Position for PRJ-303
-                if (mirrorPos[16]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 303. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,17);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 303. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,17);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[17],resp.coils[3])){
-                mirrorPos[17]  = resp.coils[3];                //mirror Position for PRJ-304
-                if (mirrorPos[17]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 304. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,18);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 304. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,18);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[18],resp.coils[11])){
-                mirrorPos[18]  = resp.coils[11];               //mirror Position for PRJ-305
-                if (mirrorPos[18]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 305. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,19);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 305. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,19);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[19],resp.coils[12])){
-                mirrorPos[19]  = resp.coils[12];               //mirror Position for PRJ-306
-                if (mirrorPos[19]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 306. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,20);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 306. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,20);  //check status of Projector
-                    },1000);
-                }
-            }
-            if(checkUpdatedMirrPosValue(mirrorPos[20],resp.coils[13])){
-                mirrorPos[20]  = resp.coils[13];               //mirror Position for PRJ-307
-                if (mirrorPos[20]==0){
-                    watchDog.eventLog('Executing Proj Commands on Projector 307. Sending Command ::  Power OFF');
-                    projReq.sendPacketToProjectors(3,21);      //power off Projector
-                    setTimeout(function(){
-                        watchDog.eventLog('Executing Proj Commands on Projector 307. Sending Command ::  Power Status');
-                        projReq.sendPacketToProjectors(1,21);  //check status of Projector
-                    },1000);
-                }
-            }
-        }
-    });
     
     plc_client.readCoils(0,145,function(resp){
         
@@ -484,14 +97,14 @@ if (PLCConnected){
             var windIndex = 46; //farm
             status_windSensor.push(resp.coils[windIndex] ? resp.coils[windIndex] : 0);     // ST1001_Abort Show
             status_windSensor.push(resp.coils[windIndex+1] ? resp.coils[windIndex+1] : 0); // ST1001_Above_Hi
-            windHi = status_windSensor[1];
+            //windHi = status_windSensor[1];
             
             status_windSensor.push(resp.coils[windIndex+2] ? resp.coils[windIndex+2] : 0); // ST1001_Below_Low
-            windLo = status_windSensor[2];
+            //windLo = status_windSensor[2];
 
             status_windSensor.push(resp.coils[windIndex+3] ? resp.coils[windIndex+3] : 0); // ST1001_Speed_Channel_Fault
             status_windSensor.push(resp.coils[windIndex+4] ? resp.coils[windIndex+4] : 0); // ST1001_No_Wind
-            windNo = status_windSensor[4];
+            //windNo = status_windSensor[4];
             
             status_windSensor.push(resp.coils[windIndex+5] ? resp.coils[windIndex+5] : 0); // ST1001_Drctn_Channel_Fault
 
@@ -598,14 +211,9 @@ if (PLCConnected){
 
             totalStatus = bool2int(totalStatus);
 
-            // if (devStatus.length > 1) {
-            //     logChanges(totalStatus); // detects change of total status
-            //     if  ((devStatus[5][0] === 0) && (totalStatus[5][0] === 1)){
-            //         //Lights toggled to Manual Mode
-            //         dayMode = 1;//turn dayMode ON so that the lights are OFF
-            //         watchDog.eventLog('dayMode set to  ' +dayMode);
-            //     }
-            // }
+            if (devStatus.length > 1) {
+             //   logChanges(totalStatus); // detects change of total status
+            }
 
             devStatus = totalStatus; // makes the total status equal to the current error state
 
@@ -646,24 +254,6 @@ if (PLCConnected){
                             "VFD 107 Fault Code":vfd1_faultCode[6],
                             "VFD 108 Fault Code":vfd1_faultCode[7],
                             "VFD 109 Fault Code":vfd1_faultCode[8],
-                            "VFD 201 Fault Code":vfd2_faultCode[0],
-                            "VFD 202 Fault Code":vfd2_faultCode[1],
-                            "VFD 203 Fault Code":vfd2_faultCode[2],
-                            "VFD 204 Fault Code":vfd2_faultCode[3],
-                            "VFD 205 Fault Code":vfd2_faultCode[4],
-                            "VFD 206 Fault Code":vfd2_faultCode[5],
-                            "VFD 207 Fault Code":vfd2_faultCode[6],
-                            "VFD 208 Fault Code":vfd2_faultCode[7],
-                            "VFD 209 Fault Code":vfd2_faultCode[8],
-                            "VFD 301 Fault Code":vfd3_faultCode[0],
-                            "VFD 302 Fault Code":vfd3_faultCode[1],
-                            "VFD 303 Fault Code":vfd3_faultCode[2],
-                            "VFD 304 Fault Code":vfd3_faultCode[3],
-                            "VFD 305 Fault Code":vfd3_faultCode[4],
-                            "VFD 306 Fault Code":vfd3_faultCode[5],
-                            "VFD 307 Fault Code":vfd3_faultCode[6],
-                            "VFD 308 Fault Code":vfd3_faultCode[7],
-                            "VFD 309 Fault Code":vfd3_faultCode[8],
                             "VFD 101 Pressure Fault":fault_PUMPS[0],
                             "VFD 102 Pressure Fault":fault_PUMPS[1],
                             "VFD 103 Pressure Fault":fault_PUMPS[2],
@@ -673,8 +263,6 @@ if (PLCConnected){
                             "VFD 107 Pressure Fault":fault_PUMPS[6],
                             "VFD 108 Pressure Fault":fault_PUMPS[7],
                             "VFD 109 Pressure Fault":fault_PUMPS[8],
-                            "VFD 110 Pressure Fault":fault_PUMPS[9],
-                            "VFD 111 Pressure Fault":fault_PUMPS[10],
                             "VFD 101 Pump Fault":fault_PUMPS[11],
                             "VFD 102 Pump Fault":fault_PUMPS[12],
                             "VFD 103 Pump Fault":fault_PUMPS[13],
@@ -684,8 +272,6 @@ if (PLCConnected){
                             "VFD 107 Pump Fault":fault_PUMPS[17],
                             "VFD 108 Pump Fault":fault_PUMPS[18],
                             "VFD 109 Pump Fault":fault_PUMPS[19],
-                            "VFD 110 Pump Fault":fault_PUMPS[20],
-                            "VFD 111 Pump Fault":fault_PUMPS[21],
                             "VFD 101 Network Fault":fault_PUMPS[22],
                             "VFD 102 Network Fault":fault_PUMPS[23],
                             "VFD 103 Network Fault":fault_PUMPS[24],
@@ -695,8 +281,6 @@ if (PLCConnected){
                             "VFD 107 Network Fault":fault_PUMPS[28],
                             "VFD 108 Network Fault":fault_PUMPS[29],
                             "VFD 109 Network Fault":fault_PUMPS[30],
-                            "VFD 110 Network Fault":fault_PUMPS[31],
-                            "VFD 111 Network Fault":fault_PUMPS[32],
                             "****************************WATERLEVEL STATUS********************" : "4",
                             "LT1001 Above_HiHi":status_WaterLevel[0],
                             "LT1001 Above_Hi":status_WaterLevel[1],
@@ -770,15 +354,6 @@ if (PLCConnected){
     });//end of first PLC modbus call
 }
 var date = new Date();
-if (((date.getMinutes() === 29) || (date.getMinutes() === 59)) && (date.getSeconds() === 59)){
-    for(var i = 1; i < 22; i++){
-        projReq.sendPacketToProjectors(7,i);
-    }  
-    setTimeout(function(){
-        //watchDog.eventLog("Prj Data is :: "+JSON.stringify(prj));
-       fs.writeFileSync(__dirname+'/UserFiles/temperatureData.txt',JSON.stringify(prj),'utf-8');
-    },20000);
-}
 // if((date.getDate() >= 10) && (date.getMonth() >= 3)){
 //     serviceRequired = 1;
 // }
@@ -790,30 +365,20 @@ if (SPMConnected){
      //    watchDog.eventLog('Read PLC M3 value: '+m3Bit);
      // });
 
-     spm_client.readHoldingRegister(3052,5,function(resp){
+     // spm_client.readHoldingRegister(3052,5,function(resp){
 
-     //     // Fire Spire data
-     //     watchDog.eventLog("Fire 401: Value: "  +intByte_HiLo(resp.register[0])[0]);    // Fire Spire - 401
-     //     watchDog.eventLog("Fire 402: Value: "  +intByte_HiLo(resp.register[0])[1]);    // Fire Spire - 402
-     //     watchDog.eventLog("Fire 403: Value: "  +intByte_HiLo(resp.register[1])[0]);    // Fire Spire - 403
-     //     watchDog.eventLog("Fire 404: Value: "  +intByte_HiLo(resp.register[1])[1]);    // Fire Spire - 404
-     //     watchDog.eventLog("Fire 405: Value: "  +intByte_HiLo(resp.register[2])[0]);    // Fire Spire - 405
-     //     watchDog.eventLog("Fire 406: Value: "  +intByte_HiLo(resp.register[2])[1]);    // Fire Spire - 406
-         // watchDog.eventLog("P:107 Value: "  +intByte_HiLo(resp.register[0])[0]);        // P-107
-         // watchDog.eventLog("P:207 Value: "  +intByte_HiLo(resp.register[0])[1]);        // P-207
-         // watchDog.eventLog("P:307 Value: "  +intByte_HiLo(resp.register[1])[0]);        // P-307
+     // //     // Fire Spire data
+     // //     watchDog.eventLog("Fire 401: Value: "  +intByte_HiLo(resp.register[0])[0]);    // Fire Spire - 401
+     // //     watchDog.eventLog("Fire 402: Value: "  +intByte_HiLo(resp.register[0])[1]);    // Fire Spire - 402
+     // //     watchDog.eventLog("Fire 403: Value: "  +intByte_HiLo(resp.register[1])[0]);    // Fire Spire - 403
+     // //     watchDog.eventLog("Fire 404: Value: "  +intByte_HiLo(resp.register[1])[1]);    // Fire Spire - 404
+     // //     watchDog.eventLog("Fire 405: Value: "  +intByte_HiLo(resp.register[2])[0]);    // Fire Spire - 405
+     // //     watchDog.eventLog("Fire 406: Value: "  +intByte_HiLo(resp.register[2])[1]);    // Fire Spire - 406
+     //     // watchDog.eventLog("P:107 Value: "  +intByte_HiLo(resp.register[0])[0]);        // P-107
+     //     // watchDog.eventLog("P:207 Value: "  +intByte_HiLo(resp.register[0])[1]);        // P-207
+     //     // watchDog.eventLog("P:307 Value: "  +intByte_HiLo(resp.register[1])[0]);        // P-307
 
-         noe_client.writeSingleRegister(2204,intByte_HiLo(resp.register[0])[0],function(resp){});
-         noe_client.writeSingleRegister(2205,intByte_HiLo(resp.register[0])[1],function(resp){});
-         noe_client.writeSingleRegister(2206,intByte_HiLo(resp.register[1])[0],function(resp){});
-         noe_client.writeSingleRegister(2207,intByte_HiLo(resp.register[1])[1],function(resp){});
-         noe_client.writeSingleRegister(2208,intByte_HiLo(resp.register[2])[0],function(resp){});
-         noe_client.writeSingleRegister(2209,intByte_HiLo(resp.register[2])[1],function(resp){});
-         noe_client.writeSingleRegister(2200,intByte_HiLo(resp.register[3])[0],function(resp){});
-         noe_client.writeSingleRegister(2201,intByte_HiLo(resp.register[3])[1],function(resp){});
-         noe_client.writeSingleRegister(2202,intByte_HiLo(resp.register[4])[0],function(resp){});
-
-     });
+     // });
 
     if(autoMan===1){
        plc_client.writeSingleCoil(4,1,function(resp){});
