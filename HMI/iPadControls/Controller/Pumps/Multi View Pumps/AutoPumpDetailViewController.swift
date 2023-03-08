@@ -158,35 +158,15 @@ class AutoPumpDetailViewController: UIViewController,UIGestureRecognizerDelegate
             case 104: vfdNumber.text = "VFD - 104"
             case 105: vfdNumber.text = "VFD - 105"
             case 106: vfdNumber.text = "VFD - 106"
-            case 121: vfdNumber.text = "VFD - 201"
-            case 122: vfdNumber.text = "VFD - 202"
-            case 123: vfdNumber.text = "VFD - 203"
-            case 124: vfdNumber.text = "VFD - 204"
-            case 125: vfdNumber.text = "VFD - 205"
-            case 126: vfdNumber.text = "VFD - 206"
-            case 131: vfdNumber.text = "VFD - 301"
-            case 132: vfdNumber.text = "VFD - 302"
-            case 133: vfdNumber.text = "VFD - 303"
-            case 134: vfdNumber.text = "VFD - 304"
-            case 135: vfdNumber.text = "VFD - 305"
-            case 136: vfdNumber.text = "VFD - 306"
             
             case 107: vfdNumber.text = "VFD - 107"
-            case 127: vfdNumber.text = "VFD - 207"
-            case 137: vfdNumber.text = "VFD - 307"
-            
             case 108: vfdNumber.text = "VFD - 108"
-            case 128: vfdNumber.text = "VFD - 208"
-            case 138: vfdNumber.text = "VFD - 308"
-            
             case 109: vfdNumber.text = "VFD - 109"
-            case 129: vfdNumber.text = "VFD - 209"
-            case 139: vfdNumber.text = "VFD - 309"
             
         default:
             print("FAULT TAG")
         }
-        if pumpNumber == 108 || pumpNumber == 109 || pumpNumber == 128 || pumpNumber == 129 || pumpNumber == 138 || pumpNumber == 139 {
+        if pumpNumber == 107 || pumpNumber == 109 {
             currentScalingFactorPump = 100
         } else {
             currentScalingFactorPump = 10

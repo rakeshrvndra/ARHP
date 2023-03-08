@@ -79,36 +79,27 @@ class PumpSchedulerViewController: UIViewController {
             
         }
         readPumpEnStatus()
-        if schedulerTag == 55{
-            self.enableDisView.isHidden = true
-        } else {
-            self.enableDisView.isHidden = false
-        }
+        
         if schedulerTag == 11{
-            readServerPath = READ_SURGE_SERVER_PATH
-            writeServerPath = WRITE_SURGE_SERVER_PATH
-            self.navigationItem.title = "SURGE PUMPS SCHEDULER"
-            self.noteSchedulerData.text = "PUMP 101-106,201-206 AND 301-306 ARE CONTROLLED BY THIS SCHEDULER"
+            readServerPath = READ_TWW_SERVER_PATH
+            writeServerPath = WRITE_TWW_SERVER_PATH
+            self.navigationItem.title = "TEXTURED WALL PUMPS SCHEDULER"
+            self.noteSchedulerData.text = "PUMP 101-106 ARE CONTROLLED BY THIS SCHEDULER"
         } else if schedulerTag == 22{
             readServerPath = READ_FILTRATION_SERVER_PATH
             writeServerPath = WRITE_FILTRATION_SERVER_PATH
             self.navigationItem.title = "FILTRATION PUMPS SCHEDULER"
-            self.noteSchedulerData.text = "PUMP-109,209 AND 309 ARE CONTROLLED BY THIS SCHEDULER"
+            self.noteSchedulerData.text = "PUMP-109 IS CONTROLLED BY THIS SCHEDULER"
         }else if schedulerTag == 33{
-            readServerPath = READ_DISPLAY_SERVER_PATH
-            writeServerPath = WRITE_DISPLAY_SERVER_PATH
-            self.navigationItem.title = "DISPLAY PUMPS SCHEDULER"
-            self.noteSchedulerData.text = "PUMP-107,207 AND 307 ARE CONTROLLED BY THIS SCHEDULER"
+            readServerPath = READ_GLASS_SERVER_PATH
+            writeServerPath = WRITE_GLASS_SERVER_PATH
+            self.navigationItem.title = "GLASS WALL PUMPS SCHEDULER"
+            self.noteSchedulerData.text = "PUMP-108 IS CONTROLLED BY THIS SCHEDULER"
         } else if schedulerTag == 44{
-            readServerPath = READ_RUNNEL_SERVER_PATH
-            writeServerPath = WRITE_RUNNEL_SERVER_PATH
-            self.navigationItem.title = "RUNNEL PUMPS SCHEDULER"
-            self.noteSchedulerData.text = "PUMP-108,208 AND 308 ARE CONTROLLED BY THIS SCHEDULER"
-        } else if schedulerTag == 55{
-            readServerPath = READ_PRJ_SERVER_PATH
-            writeServerPath = WRITE_PRJ_SERVER_PATH
-            self.navigationItem.title = "PROJECTOR LIFTS SCHEDULER"
-            self.noteSchedulerData.text = "WALL 1,2,3 PROJECTORS CONTROLLED BY THIS SCHEDULER"
+            readServerPath = READ_RR_SERVER_PATH
+            writeServerPath = WRITE_RR_SERVER_PATH
+            self.navigationItem.title = "RAIN RING PUMPS SCHEDULER"
+            self.noteSchedulerData.text = "PUMP-107 IS CONTROLLED BY THIS SCHEDULER"
         }
         
         //Add notification observer to get system stat
@@ -192,21 +183,21 @@ class PumpSchedulerViewController: UIViewController {
            
         } else if schedulerTag == 11{
             if scheduleSwitch.isOn{
-                CENTRAL_SYSTEM?.writeBit(bit: SURGE_PUMP_EN, value: 1)
+                CENTRAL_SYSTEM?.writeBit(bit: TWW_PUMP_EN, value: 1)
             } else {
-                CENTRAL_SYSTEM?.writeBit(bit: SURGE_PUMP_EN, value: 0)
+                CENTRAL_SYSTEM?.writeBit(bit: TWW_PUMP_EN, value: 0)
             }
         } else if schedulerTag == 33{
             if scheduleSwitch.isOn{
-                CENTRAL_SYSTEM?.writeBit(bit: DISPLAY_PUMP_EN, value: 1)
+                CENTRAL_SYSTEM?.writeBit(bit: GLASS_PUMP_EN, value: 1)
             } else {
-                CENTRAL_SYSTEM?.writeBit(bit: DISPLAY_PUMP_EN, value: 0)
+                CENTRAL_SYSTEM?.writeBit(bit: GLASS_PUMP_EN, value: 0)
             }
         }else if schedulerTag == 44{
             if scheduleSwitch.isOn{
-                CENTRAL_SYSTEM?.writeBit(bit: RUNNEL_PUMP_EN, value: 1)
+                CENTRAL_SYSTEM?.writeBit(bit: RR_PUMP_EN, value: 1)
             } else {
-                CENTRAL_SYSTEM?.writeBit(bit: RUNNEL_PUMP_EN, value: 0)
+                CENTRAL_SYSTEM?.writeBit(bit: RR_PUMP_EN, value: 0)
             }
         }
         readPumpEnStatus()
@@ -230,7 +221,7 @@ class PumpSchedulerViewController: UIViewController {
                 }
             })
         } else if schedulerTag == 11{
-            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(SURGE_PUMP_EN), completion: { (success, response) in
+            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(TWW_PUMP_EN), completion: { (success, response) in
                 
                 guard success == true else { return }
                 
@@ -243,7 +234,7 @@ class PumpSchedulerViewController: UIViewController {
                 }
             })
         } else if schedulerTag == 33{
-            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(DISPLAY_PUMP_EN), completion: { (success, response) in
+            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(GLASS_PUMP_EN), completion: { (success, response) in
                 
                 guard success == true else { return }
                 
@@ -256,7 +247,7 @@ class PumpSchedulerViewController: UIViewController {
                 }
             })
         } else if schedulerTag == 44{
-            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(RUNNEL_PUMP_EN), completion: { (success, response) in
+            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(RR_PUMP_EN), completion: { (success, response) in
                 
                 guard success == true else { return }
                 

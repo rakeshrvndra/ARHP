@@ -28,21 +28,9 @@ class WaterLevelSettingsViewController: UIViewController{
     @IBOutlet weak var abovHSPDelay:    UITextField!
     @IBOutlet weak var belowLSPDelay:   UITextField!
     @IBOutlet weak var belowLLSPDelay:  UITextField!
+    @IBOutlet weak var belowLLLSPDelay:  UITextField!
     @IBOutlet weak var makeupTimeout:   UITextField!
-    
-     @IBOutlet weak var lt1001ScaledVal:   UILabel!
-     @IBOutlet weak var lt1001ScaledMin:   UITextField!
-     @IBOutlet weak var lt1001ScaledMax:   UITextField!
-     @IBOutlet weak var lt1001abvHSP:   UITextField!
-     @IBOutlet weak var lt1001blwLSP:   UITextField!
-     @IBOutlet weak var lt1001blwLLSP:   UITextField!
-    
-    @IBOutlet weak var lt2001ScaledVal:   UILabel!
-    @IBOutlet weak var lt2001ScaledMin:   UITextField!
-    @IBOutlet weak var lt2001ScaledMax:   UITextField!
-    @IBOutlet weak var lt2001abvHSP:   UITextField!
-    @IBOutlet weak var lt2001blwLSP:   UITextField!
-    @IBOutlet weak var lt2001blwLLSP:   UITextField!
+    @IBOutlet weak var lsllDelayTimer:  UITextField!
     
     @IBOutlet weak var lt3001ScaledVal:   UILabel!
     @IBOutlet weak var lt3001ScaledMin:   UITextField!
@@ -50,6 +38,7 @@ class WaterLevelSettingsViewController: UIViewController{
     @IBOutlet weak var lt3001abvHSP:   UITextField!
     @IBOutlet weak var lt3001blwLSP:   UITextField!
     @IBOutlet weak var lt3001blwLLSP:   UITextField!
+    @IBOutlet weak var lt3001blwLLLSP:   UITextField!
     
     //No Connection View
     @IBOutlet weak var noConnectionView: UIView!
@@ -59,8 +48,6 @@ class WaterLevelSettingsViewController: UIViewController{
     let logger = Logger()
     
     var currentSetpoints = WATER_LEVEL_SENSOR_VALUES()
-    var lt1001liveSensorValues  = WATER_LEVEL_SENSOR_VALUES()
-    var lt2001liveSensorValues  = WATER_LEVEL_SENSOR_VALUES()
     var lt3001liveSensorValues  = WATER_LEVEL_SENSOR_VALUES()
     var LT1001SetPoints = [Double]()
     var readLT1001once = false
@@ -138,18 +125,6 @@ class WaterLevelSettingsViewController: UIViewController{
             CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_LEVEL_SCALED_VALUE), length: 2, completion: { (success, response) in
                guard success == true else { return }
                let scaledVal = Float(response)
-               self.lt1001ScaledVal.text =  String(format: "%.2f", scaledVal!)
-            })
-            
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT2001_WATER_LEVEL_SCALED_VALUE), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let scaledVal = Float(response)
-               self.lt2001ScaledVal.text =  String(format: "%.2f", scaledVal!)
-            })
-            
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT3001_WATER_LEVEL_SCALED_VALUE), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let scaledVal = Float(response)
                self.lt3001ScaledVal.text =  String(format: "%.2f", scaledVal!)
             })
             
@@ -195,15 +170,22 @@ class WaterLevelSettingsViewController: UIViewController{
         
         if let belowLSPDelay = belowLSPDelay.text, !belowLSPDelay.isEmpty,
            let belowL = Int(belowLSPDelay) {
-            if belowL >= 0 && belowL <= 30 {
+            if belowL >= 0 && belowL <= 60 {
                 CENTRAL_SYSTEM?.writeRegister(register: WATER_LEVEL_BELOW_L_TIMER, value: belowL)
             }
         }
         
         if let belowLLSPDelay  = belowLLSPDelay.text, !belowLLSPDelay.isEmpty,
            let belowLL = Int(belowLLSPDelay) {
-            if belowLL >= 0 && belowLL <= 30 {
+            if belowLL >= 0 && belowLL <= 60 {
                 CENTRAL_SYSTEM?.writeRegister(register: WATER_LEVEL_BELOW_LL_TIMER, value: belowLL)
+            }
+        }
+        
+        if let belowLLLSPDelay  = belowLLLSPDelay.text, !belowLLLSPDelay.isEmpty,
+           let belowLLL = Int(belowLLLSPDelay) {
+            if belowLLL >= 0 && belowLLL <= 60 {
+                CENTRAL_SYSTEM?.writeRegister(register: WATER_LEVEL_BELOW_LLL_TIMER, value: belowLLL)
             }
         }
 
@@ -213,100 +195,49 @@ class WaterLevelSettingsViewController: UIViewController{
                  CENTRAL_SYSTEM?.writeRegister(register: WATER_MAKEUP_TIMEROUT_TIMER, value: makeup)
             }
         }
+        
+        if let lsllDelay = lsllDelayTimer.text, !lsllDelay.isEmpty,
+           let lsllD = Int(lsllDelay) {
+            if lsllD >= 0 && lsllD <= 60 {
+                 CENTRAL_SYSTEM?.writeRegister(register: LSLL1001_DELAYTIMER, value: lsllD)
+            }
+        }
         //LT1001
         
-        if let scalMin = lt1001ScaledMin.text, !scalMin.isEmpty,
+        if let scalMin = lt3001ScaledMin.text, !scalMin.isEmpty,
            let minValue = Float(scalMin) {
 
            CENTRAL_SYSTEM?.writeRealValue(register: LT1001_WATER_LEVEL_SCALED_MIN, value: minValue)
         }
         
-        if let scalMax = lt1001ScaledMax.text, !scalMax.isEmpty,
+        if let scalMax = lt3001ScaledMax.text, !scalMax.isEmpty,
            let maxValue = Float(scalMax) {
 
            CENTRAL_SYSTEM?.writeRealValue(register: LT1001_WATER_LEVEL_SCALED_MAX, value: maxValue)
         }
         
-        if let aboveH = lt1001abvHSP.text, !aboveH.isEmpty,
+        if let aboveH = lt3001abvHSP.text, !aboveH.isEmpty,
            let aboveHSP = Float(aboveH) {
 
            CENTRAL_SYSTEM?.writeRealValue(register: LT1001_WATER_ABOVE_HI, value: aboveHSP)
         }
 
-        if let belowL = lt1001blwLSP.text, !belowL.isEmpty,
+        if let belowL = lt3001blwLSP.text, !belowL.isEmpty,
            let belowLSP = Float(belowL) {
 
            CENTRAL_SYSTEM?.writeRealValue(register: LT1001_WATER_LEVEL_BELOW_L, value: belowLSP)
         }
 
-        if let belowLL = lt1001blwLLSP.text, !belowLL.isEmpty,
+        if let belowLL = lt3001blwLLSP.text, !belowLL.isEmpty,
            let belowLLSP = Float(belowLL) {
 
            CENTRAL_SYSTEM?.writeRealValue(register: LT1001_WATER_LEVEL_BELOW_LL, value: belowLLSP)
         }
         
-        //LT2001
-        
-        if let scalMin = lt2001ScaledMin.text, !scalMin.isEmpty,
-           let minValue = Float(scalMin) {
+        if let belowLLL = lt3001blwLLLSP.text, !belowLLL.isEmpty,
+           let belowLLLSP = Float(belowLLL) {
 
-           CENTRAL_SYSTEM?.writeRealValue(register: LT2001_WATER_LEVEL_SCALED_MIN, value: minValue)
-        }
-        
-        if let scalMax = lt2001ScaledMax.text, !scalMax.isEmpty,
-           let maxValue = Float(scalMax) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT2001_WATER_LEVEL_SCALED_MAX, value: maxValue)
-        }
-        
-        if let aboveH = lt2001abvHSP.text, !aboveH.isEmpty,
-           let aboveHSP = Float(aboveH) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT2001_WATER_ABOVE_HI, value: aboveHSP)
-        }
-
-        if let belowL = lt2001blwLSP.text, !belowL.isEmpty,
-           let belowLSP = Float(belowL) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT2001_WATER_LEVEL_BELOW_L, value: belowLSP)
-        }
-
-        if let belowLL = lt2001blwLLSP.text, !belowLL.isEmpty,
-           let belowLLSP = Float(belowLL) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT2001_WATER_LEVEL_BELOW_LL, value: belowLLSP)
-        }
-        
-        //LT3001
-        
-        if let scalMin = lt3001ScaledMin.text, !scalMin.isEmpty,
-           let minValue = Float(scalMin) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT3001_WATER_LEVEL_SCALED_MIN, value: minValue)
-        }
-        
-        if let scalMax = lt3001ScaledMax.text, !scalMax.isEmpty,
-           let maxValue = Float(scalMax) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT3001_WATER_LEVEL_SCALED_MAX, value: maxValue)
-        }
-        
-        if let aboveH = lt3001abvHSP.text, !aboveH.isEmpty,
-           let aboveHSP = Float(aboveH) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT3001_WATER_ABOVE_HI, value: aboveHSP)
-        }
-
-        if let belowL = lt3001blwLSP.text, !belowL.isEmpty,
-           let belowLSP = Float(belowL) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT3001_WATER_LEVEL_BELOW_L, value: belowLSP)
-        }
-
-        if let belowLL = lt3001blwLLSP.text, !belowLL.isEmpty,
-           let belowLLSP = Float(belowLL) {
-
-           CENTRAL_SYSTEM?.writeRealValue(register: LT3001_WATER_LEVEL_BELOW_LL, value: belowLLSP)
+           CENTRAL_SYSTEM?.writeRealValue(register: LT1001_WATER_LEVEL_BELOW_LLL, value: belowLLLSP)
         }
         readTimersFromPLC()
     }
@@ -330,35 +261,19 @@ class WaterLevelSettingsViewController: UIViewController{
                 self.currentSetpoints.above_high_timer =  Int(truncating: response![0] as! NSNumber)
                 self.currentSetpoints.below_l_timer   =  Int(truncating: response![1] as! NSNumber)
                 self.currentSetpoints.below_ll_timer  =  Int(truncating: response![2] as! NSNumber)
+                self.currentSetpoints.below_lll_timer  =  Int(truncating: response![3] as! NSNumber)
+                self.currentSetpoints.makeup_timeout_timer = Int(truncating: response![4] as! NSNumber)
+                self.currentSetpoints.lsll_delayTimer = Int(truncating: response![5] as! NSNumber)
 
                 self.abovHSPDelay.text       = "\(self.currentSetpoints.above_high_timer)"
                 self.belowLSPDelay.text      = "\(self.currentSetpoints.below_l_timer)"
                 self.belowLLSPDelay.text     = "\(self.currentSetpoints.below_ll_timer)"
-            })
-            
-            CENTRAL_SYSTEM!.readRegister(length:1, startingRegister: Int32(WATER_MAKEUP_TIMEROUT_TIMER), completion: { (success, response) in
-                
-                guard success == true else { return }
-                
-                self.currentSetpoints.makeup_timeout_timer = Int(truncating: response![0] as! NSNumber)
+                self.belowLLLSPDelay.text     = "\(self.currentSetpoints.below_lll_timer)"
                 self.makeupTimeout.text      = "\(self.currentSetpoints.makeup_timeout_timer)"
-                
-                
+                self.lsllDelayTimer.text      = "\(self.currentSetpoints.lsll_delayTimer)"
             })
         
             CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_ABOVE_HI), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let abvH = Float(response)
-               self.lt1001abvHSP.text =  String(format: "%.2f", abvH!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT2001_WATER_ABOVE_HI), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let abvH = Float(response)
-               self.lt2001abvHSP.text =  String(format: "%.2f", abvH!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT3001_WATER_ABOVE_HI), length: 2, completion: { (success, response) in
                guard success == true else { return }
                let abvH = Float(response)
                self.lt3001abvHSP.text =  String(format: "%.2f", abvH!)
@@ -367,52 +282,22 @@ class WaterLevelSettingsViewController: UIViewController{
             CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_LEVEL_BELOW_L), length: 2, completion: { (success, response) in
                guard success == true else { return }
                 let blwL = Float(response)
-               self.lt1001blwLSP.text =  String(format: "%.2f", blwL!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT2001_WATER_LEVEL_BELOW_L), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let blwL = Float(response)
-               self.lt2001blwLSP.text =  String(format: "%.2f", blwL!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT3001_WATER_LEVEL_BELOW_L), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let blwL = Float(response)
                self.lt3001blwLSP.text =  String(format: "%.2f", blwL!)
             })
         
             CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_LEVEL_BELOW_LL), length: 2, completion: { (success, response) in
                guard success == true else { return }
                 let blwLL = Float(response)
-               self.lt1001blwLLSP.text =  String(format: "%.2f", blwLL!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT2001_WATER_LEVEL_BELOW_LL), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let blwLL = Float(response)
-               self.lt2001blwLLSP.text =  String(format: "%.2f", blwLL!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT3001_WATER_LEVEL_BELOW_LL), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let blwLL = Float(response)
                self.lt3001blwLLSP.text =  String(format: "%.2f", blwLL!)
             })
         
+            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_LEVEL_BELOW_LLL), length: 2, completion: { (success, response) in
+               guard success == true else { return }
+                let blwLLL = Float(response)
+               self.lt3001blwLLLSP.text =  String(format: "%.2f", blwLLL!)
+            })
+        
             CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_LEVEL_SCALED_MIN), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let minVal = Float(response)
-               self.lt1001ScaledMin.text =  String(format: "%.2f", minVal!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT2001_WATER_LEVEL_SCALED_MIN), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let minVal = Float(response)
-               self.lt2001ScaledMin.text =  String(format: "%.2f", minVal!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT3001_WATER_LEVEL_SCALED_MIN), length: 2, completion: { (success, response) in
                guard success == true else { return }
                let minVal = Float(response)
                self.lt3001ScaledMin.text =  String(format: "%.2f", minVal!)
@@ -421,24 +306,8 @@ class WaterLevelSettingsViewController: UIViewController{
             CENTRAL_SYSTEM?.readRealRegister(register: Int(LT1001_WATER_LEVEL_SCALED_MAX), length: 2, completion: { (success, response) in
                guard success == true else { return }
                let maxVal = Float(response)
-               self.lt1001ScaledMax.text =  String(format: "%.2f", maxVal!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT2001_WATER_LEVEL_SCALED_MAX), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let maxVal = Float(response)
-               self.lt2001ScaledMax.text =  String(format: "%.2f", maxVal!)
-            })
-        
-            CENTRAL_SYSTEM?.readRealRegister(register: Int(LT3001_WATER_LEVEL_SCALED_MAX), length: 2, completion: { (success, response) in
-               guard success == true else { return }
-               let maxVal = Float(response)
                self.lt3001ScaledMax.text =  String(format: "%.2f", maxVal!)
             })
    
     }
-    
-
-    
-    
 }

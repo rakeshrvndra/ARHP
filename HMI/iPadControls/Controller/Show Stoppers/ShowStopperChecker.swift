@@ -75,8 +75,6 @@ class ShowStopperChecker: UIViewController {
                //Water Level Show Stopper
                let water_level_below_ll     = Int(truncating: response[1] as! NSNumber)
         
-                //client Estop show stopper
-                let client_stop     = Int(truncating: response[3] as! NSNumber)
                /* DO NOT CHANGE THE (showStopper: "NAME"). ALREADY SET AND CORRESPONDS TO THE CORRECT IMAGE NAME */
                let ratmode = self.showManager.getStatusLogFromServer()
                let ratmode_status = ratmode.spmRatmode
@@ -86,7 +84,6 @@ class ShowStopperChecker: UIViewController {
                } else {
                    removeShowStopper(showStopper: "showStopperWaterLevel")
                }
-               
                
                if wind_speed_1_abort_show == FAULT_DETECTED {
                    createShowStoppers(showStopper: "showStopperWind")
@@ -105,12 +102,6 @@ class ShowStopperChecker: UIViewController {
                } else {
                    removeShowStopper(showStopper: "showStopperRATmode")
                }
-        
-                if client_stop == FAULT_DETECTED {
-                    createShowStoppers(showStopper: "showStopperClient")
-                } else {
-                    removeShowStopper(showStopper: "showStopperClient")
-                }
         
     }
     

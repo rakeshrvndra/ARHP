@@ -38,6 +38,8 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
     @IBOutlet weak var countDownTimerBG: UIView!
     @IBOutlet weak var countDownTimer: UILabel!
     
+    @IBOutlet weak var pumpSchBtn: UIButton!
+    
     var manulPumpGesture: UIPanGestureRecognizer!
     var backWashGesture: UIPanGestureRecognizer!
     
@@ -52,7 +54,7 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
     
     private var langData = [String : String]()
     private var iPadNumber = 0
-    var pumpNumber = 0
+    var pumpNumber = 109
     private var bwashRunning = 0
     private var is24hours = true
     private var showStoppers = ShowStoppers()
@@ -124,22 +126,10 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
     }
     
     func setInitialParam(){
-        if pumpNumber == 109{
-            self.navigationItem.title = "FILTRATION - 109"
-            self.pumpButton.setTitle("P - 109", for: .normal)
-            READ_BACKWASH_PATH = READ_BACK_WASH1
-            WRITE_BACKWASH_PATH = WRITE_BACK_WASH1
-        } else if pumpNumber == 129{
-            self.navigationItem.title = "FILTRATION - 209"
-            self.pumpButton.setTitle("P - 209", for: .normal)
-            READ_BACKWASH_PATH = READ_BACK_WASH2
-            WRITE_BACKWASH_PATH = WRITE_BACK_WASH2
-        } else if pumpNumber == 139{
-            self.navigationItem.title = "FILTRATION - 309"
-            self.pumpButton.setTitle("P - 309", for: .normal)
-            READ_BACKWASH_PATH = READ_BACK_WASH3
-            WRITE_BACKWASH_PATH = WRITE_BACK_WASH3
-        }
+        self.navigationItem.title = "FILTRATION - 109"
+        self.pumpButton.setTitle("P - 109", for: .normal)
+        READ_BACKWASH_PATH = READ_BACK_WASH1
+        WRITE_BACKWASH_PATH = WRITE_BACK_WASH1
     }
     
     
@@ -543,56 +533,21 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
      ***************************************************************************/
     
     private func readBackWashRunning(){
-        
-        if pumpNumber == 109 {
-            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(FILTRATION_BWASH_RUNNING_BIT), completion: { (success, response) in
-                
-                guard success == true else { return }
-                
-                let running = Int(truncating: response![0] as! NSNumber)
-                self.bwashRunning = running
-                
-                if running == 1{
-                    self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashRunning"), for: .normal)
-                    UserDefaults.standard.set(1, forKey: "backWashRunningStat")
-                } else {
-                    self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashIcon"), for: .normal)
-                    UserDefaults.standard.set(0, forKey: "backWashRunningStat")
-                }
-            })
-        } else if pumpNumber == 129 {
-            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(FILTRATION_BWASH_RUNNING_BIT_W2), completion: { (success, response) in
-                
-                guard success == true else { return }
-                
-                let running = Int(truncating: response![0] as! NSNumber)
-                self.bwashRunning = running
-                
-                if running == 1{
-                    self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashRunning"), for: .normal)
-                    UserDefaults.standard.set(1, forKey: "backWashRunningStat")
-                } else {
-                    self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashIcon"), for: .normal)
-                    UserDefaults.standard.set(0, forKey: "backWashRunningStat")
-                }
-            })
-        } else if pumpNumber == 139 {
-            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(FILTRATION_BWASH_RUNNING_BIT_W3), completion: { (success, response) in
-                
-                guard success == true else { return }
-                
-                let running = Int(truncating: response![0] as! NSNumber)
-                self.bwashRunning = running
-                
-                if running == 1{
-                    self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashRunning"), for: .normal)
-                    UserDefaults.standard.set(1, forKey: "backWashRunningStat")
-                } else {
-                    self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashIcon"), for: .normal)
-                    UserDefaults.standard.set(0, forKey: "backWashRunningStat")
-                }
-            })
-        }
+        CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(FILTRATION_BWASH_RUNNING_BIT), completion: { (success, response) in
+            
+            guard success == true else { return }
+            
+            let running = Int(truncating: response![0] as! NSNumber)
+            self.bwashRunning = running
+            
+            if running == 1{
+                self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashRunning"), for: .normal)
+                UserDefaults.standard.set(1, forKey: "backWashRunningStat")
+            } else {
+                self.manualBwashButton.setImage(#imageLiteral(resourceName: "bwashIcon"), for: .normal)
+                UserDefaults.standard.set(0, forKey: "backWashRunningStat")
+            }
+        })
         
     }
     
@@ -796,28 +751,11 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
      ***************************************************************************/
     
     @IBAction func toggleManualBackwash(_ sender: Any){
-        if pumpNumber == 109{
-            CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT, value: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT, value: 0)
-                
-            }
-        } else if pumpNumber == 129{
-            CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT2, value: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT2, value: 0)
-                
-            }
-        } else if pumpNumber == 139{
-            CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT3, value: 1)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-                CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT3, value: 0)
-                
-            }
+        CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT, value: 1)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+            CENTRAL_SYSTEM?.writeBit(bit: FILTRATION_TOGGLE_BWASH_BIT, value: 0)
+            
         }
-        
-        
-        
     }
     
     
@@ -1076,5 +1014,26 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
         } else {
             is24hours = true
         }
+    }
+    
+    @IBAction func redirectToPumpScheduler(_ sender: UIButton) {
+        let schedulerShowVC = UIStoryboard.init(name: "pumps", bundle: nil).instantiateViewController(withIdentifier: "pumpSchedulerViewController") as! PumpSchedulerViewController
+        schedulerShowVC.schedulerTag = sender.tag
+        navigationController?.pushViewController(schedulerShowVC, animated: true)
+    }
+    
+    func getSchdeulerStatus(){
+        CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(FILTRATION_PUMP_SCH_BIT), completion: { (success, response) in
+                           
+           guard success == true else { return }
+           
+           let filterSchOn = Int(truncating: response![0] as! NSNumber)
+             
+           if filterSchOn == 1{
+               self.pumpSchBtn.setTitleColor(GREEN_COLOR, for: .normal)
+           } else {
+               self.pumpSchBtn.setTitleColor(DEFAULT_GRAY, for: .normal)
+           }
+        })
     }
 }

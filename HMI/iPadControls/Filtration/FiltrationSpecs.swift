@@ -15,11 +15,7 @@ import Foundation
  ***************************************************************************/
 
 let READ_BACK_WASH1                              = "\(HTTP_PASS)\(SERVER_IP_ADDRESS):8080/readBW"
-let READ_BACK_WASH2                              = "\(HTTP_PASS)\(SERVER_IP_ADDRESS):8080/readBW2"
-let READ_BACK_WASH3                              = "\(HTTP_PASS)\(SERVER_IP_ADDRESS):8080/readBW3"
 let WRITE_BACK_WASH1                              = "\(HTTP_PASS)\(SERVER_IP_ADDRESS):8080/writeBW?"
-let WRITE_BACK_WASH2                              = "\(HTTP_PASS)\(SERVER_IP_ADDRESS):8080/writeBW2?"
-let WRITE_BACK_WASH3                              = "\(HTTP_PASS)\(SERVER_IP_ADDRESS):8080/writeBW3?"
 let FILTRATION_PUMP_NUMBERS                     = [113,114]
 
 let READ_FILTRATION_SERVER_PATH               = "readFilterSch"
@@ -27,10 +23,8 @@ let WRITE_FILTRATION_SERVER_PATH              = "writeFilterSch"
 let GET_FILLER_SHOW_SCH_HTTP_PATH  = "readFillerShowSch"
 let SET_FILLER_SHOW_SCH_HTTP_PATH  = "writeFillerShowSch"
 
-let FILTRATION_PUMP_EN                = 2113
-let FILTRATION_PUMP_SCH_BIT           = 2115
-
-let FILTRATION_RUNNING_BIT            = 2121
+let FILTRATION_PUMP_EN                = 2012
+let FILTRATION_PUMP_SCH_BIT           = 2014
 
 let FILTRATION_STATUS                           = (register: 2013,type:"EBOOL", count: 1)
 let FILTRATION_ON_OFF_WRITE_REGISTERS           = [2012]
@@ -41,15 +35,11 @@ let FILTRATION_STRAINERSP_REGISTER              = 4100 //
 let FILTRATION_PUMPOFF_REGISTER                 = 4101 //
 let FILTRATION_BWPRESSSP_REGISTER               = 4102 //
 
-let FILTRATION_BW_DURATION_REGISTER             = 6519 // BW_Duration_SP
+let FILTRATION_BW_DURATION_REGISTER             = 6535 // BW_Duration_SP
 let FILTRATION_TOGGLE_BWASH_BIT                 = 4002 // BW1_Server_Trigger
-let FILTRATION_TOGGLE_BWASH_BIT2                = 4004 // BW2_Server_Trigger
-let FILTRATION_TOGGLE_BWASH_BIT3                = 4006 // BW3_Server_Trigger
 let FILTRATION_BWASH_RUNNING_BIT                = 4001 // BW1_Running
-let FILTRATION_BWASH_RUNNING_BIT_W2             = 4003 // BW2_Running
-let FILTRATION_BWASH_RUNNING_BIT_W3             = 4005 // BW3_Running
-let FILTRATION_PDSH_DELAY                       = 6518
-let FILTRATION_VALVE_OPEN_CLOSE_TIME_BIT        = 6520 // Modified Timer/Times Tab on Spreadsheet. Check T_BW_Value
+let FILTRATION_PDSH_DELAY                       = 6534
+let FILTRATION_VALVE_OPEN_CLOSE_TIME_BIT        = 6536 // Modified Timer/Times Tab on Spreadsheet. Check T_BW_Value
 let FILTRATION_PUMP_FAULT                       = 1232
 
 /* SHOWN ON PUMPS TAB ON EXCEL -- SHOULD SAY FILTRATION */

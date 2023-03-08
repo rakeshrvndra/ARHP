@@ -264,17 +264,9 @@ class ACTHomeViewController: UIViewController{
                 screen_Name = screenName
                 readServerPath = READ_LIGHT_SERVER_PATH
                 writeServerPath = WRITE_LIGHT_SERVER_PATH
-            } else if screenName == "runnelPump" {
-                readServerPath = READ_DISPLAY_SERVER_PATH
-                writeServerPath = WRITE_RUNNEL_SERVER_PATH
-                screen_Name = screenName
-            } else if screenName == "displayPump" {
-                readServerPath = READ_DISPLAY_SERVER_PATH
-                writeServerPath = WRITE_DISPLAY_SERVER_PATH
-                screen_Name = screenName
             } else if screenName == "pumps" {
-                readServerPath = READ_SURGE_SERVER_PATH
-                writeServerPath = WRITE_SURGE_SERVER_PATH
+                readServerPath = READ_TWW_SERVER_PATH
+                writeServerPath = WRITE_TWW_SERVER_PATH
                 screen_Name = screenName
             } else if screenName == "filtration" {
                 readServerPath = READ_FILTRATION_SERVER_PATH

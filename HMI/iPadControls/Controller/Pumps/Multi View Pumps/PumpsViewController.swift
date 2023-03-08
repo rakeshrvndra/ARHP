@@ -79,6 +79,8 @@ class PumpsViewController: UIViewController{
             noConnectionView.alpha = 0
             noConnectionView.isUserInteractionEnabled = false
             getSchdeulerStatus()
+            getPumpRunningStat()
+            getPumpFaultStat()
         } else {
             noConnectionView.alpha = 1
             if plcConnection == CONNECTION_STATE_FAILED {
@@ -92,32 +94,72 @@ class PumpsViewController: UIViewController{
     }
     
     func getSchdeulerStatus(){
-        CENTRAL_SYSTEM?.readBits(length: 10, startingRegister: Int32(SURGE_PUMP_SCH_BIT), completion: { (success, response) in
+        CENTRAL_SYSTEM?.readBits(length: 10, startingRegister: Int32(TWW_PUMP_SCH_BIT), completion: { (success, response) in
                            
            guard success == true else { return }
            
-           let surgeSchOn = Int(truncating: response![0] as! NSNumber)
-           let dispSchOn = Int(truncating: response![6] as! NSNumber)
-           let runnelSchOn = Int(truncating: response![9] as! NSNumber)
+           let twwSchOn = Int(truncating: response![0] as! NSNumber)
+           let glssSchOn = Int(truncating: response![4] as! NSNumber)
+           let rrSchOn = Int(truncating: response![8] as! NSNumber)
              
-           if surgeSchOn == 1{
+           if twwSchOn == 1{
                self.surgeSchBtn.setTitleColor(GREEN_COLOR, for: .normal)
            } else {
                self.surgeSchBtn.setTitleColor(DEFAULT_GRAY, for: .normal)
            }
             
-           if dispSchOn == 1{
+           if glssSchOn == 1{
                 self.dispSchBtn.setTitleColor(GREEN_COLOR, for: .normal)
            } else {
                 self.dispSchBtn.setTitleColor(DEFAULT_GRAY, for: .normal)
            }
             
-           if runnelSchOn == 1{
+           if rrSchOn == 1{
                self.runnelSchBtn.setTitleColor(GREEN_COLOR, for: .normal)
            } else {
                self.runnelSchBtn.setTitleColor(DEFAULT_GRAY, for: .normal)
            }
         })
+    }
+    
+    func getPumpRunningStat(){
+        
+        let offset = 14
+        let tagNum = 101
+        
+        for index in 0..<8 {
+            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(PUMPS_RUNNING_STATUS_START_REGISTER + (index*offset)), completion:{ (success, response) in
+                if response != nil{
+                    let tempstatus = Int(truncating: response![0] as! NSNumber)
+                    self.parsePumpStatus(tag: tagNum + index, status: tempstatus)
+                }
+            })
+        }
+    }
+    
+    func parsePumpStatus(tag: Int, status: Int) {
+            let tempbtn = self.view.viewWithTag(tag) as! UIButton
+            status == 1 ? (tempbtn.setImage(#imageLiteral(resourceName: "pumps_on"), for: .normal)) : (tempbtn.setImage(#imageLiteral(resourceName: "pumps"), for: .normal))
+    }
+
+    func getPumpFaultStat(){
+        
+        let offset = 14
+        let tagNum = 1
+        
+        for index in 0..<8 {
+            CENTRAL_SYSTEM?.readBits(length: 1, startingRegister: Int32(PUMPS_FAULT_STATUS_START_REGISTER + (index*offset)), completion:{ (success, response) in
+                if response != nil{
+                    let tempstatus = Int(truncating: response![0] as! NSNumber)
+                    self.parsePumpFaults(tag: tagNum + index, status: tempstatus)
+                }
+            })
+        }
+    }
+    
+    func parsePumpFaults(tag: Int, status: Int) {
+            let tempLbl = self.view.viewWithTag(tag) as! UILabel
+            status == 1 ? (tempLbl.textColor = RED_COLOR) : (tempLbl.textColor = DEFAULT_GRAY)
     }
     //MARK: - Configure Screen Text Content Based On Device Language
     
@@ -169,6 +211,12 @@ class PumpsViewController: UIViewController{
         let schedulerShowVC = UIStoryboard.init(name: "pumps", bundle: nil).instantiateViewController(withIdentifier: "pumpSchedulerViewController") as! PumpSchedulerViewController
         schedulerShowVC.schedulerTag = sender.tag
         navigationController?.pushViewController(schedulerShowVC, animated: true)
+    }
+    
+    @IBAction func redirectToPumpDetailsScheduler(_ sender: UIButton) {
+        let pumpDetVC = UIStoryboard.init(name: "pumps", bundle: nil).instantiateViewController(withIdentifier: "autoPumpDetail") as! AutoPumpDetailViewController
+        pumpDetVC.pumpNumber = sender.tag
+        navigationController?.pushViewController(pumpDetVC, animated: true)
     }
     
     @IBAction func settingsButtonPressed(_ sender: UIButton) {

@@ -119,12 +119,8 @@
 		9BC042B92267C265001E2F49 /* FogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC042B52267C265001E2F49 /* FogViewController.swift */; };
 		9BC042BA2267C265001E2F49 /* FogSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC042B62267C265001E2F49 /* FogSettingsViewController.swift */; };
 		9BF5679D20DC69DE001AFD30 /* iPadControls-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9BF5679C20DC69DE001AFD30 /* iPadControls-Info.plist */; };
-		BB2479D8270765D000C94588 /* LightsSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2479D7270765D000C94588 /* LightsSelectViewController.swift */; };
 		BB2479DA270F778900C94588 /* SaltPurgeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2479D9270F778900C94588 /* SaltPurgeViewController.swift */; };
 		BB2479DC2710B3D700C94588 /* SaltPurgeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2479DB2710B3D700C94588 /* SaltPurgeSettingsViewController.swift */; };
-		BB2F9E72262F88C000673A70 /* WallOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2F9E71262F88C000673A70 /* WallOneViewController.swift */; };
-		BB2F9E74262F891500673A70 /* WallTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2F9E73262F891500673A70 /* WallTwoViewController.swift */; };
-		BB2F9E76262F892A00673A70 /* WallThreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2F9E75262F892A00673A70 /* WallThreeViewController.swift */; };
 		BB4093A225E35D07008A110A /* lights.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB40939F25E35D07008A110A /* lights.storyboard */; };
 		BB4093A325E35D07008A110A /* LightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4093A025E35D07008A110A /* LightsViewController.swift */; };
 		BB4093A425E35D07008A110A /* LightsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4093A125E35D07008A110A /* LightsSpecs.swift */; };
@@ -153,7 +149,6 @@
 		BBC22C4726E2CF3E00848F23 /* ProjectorSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC22C4626E2CF3E00848F23 /* ProjectorSpecs.swift */; };
 		BBCC80F8291583B200AF0683 /* FillerShowsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBCC80F6291583B200AF0683 /* FillerShowsViewController.swift */; };
 		BBCC80F9291583B200AF0683 /* fillerShows.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBCC80F7291583B200AF0683 /* fillerShows.storyboard */; };
-		BBDCE42827A9F69A00A8FF6B /* BollardLightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDCE42727A9F69A00A8FF6B /* BollardLightViewController.swift */; };
 		BBEB6E8626F11840003F23B4 /* saltfill.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBEB6E8326F11840003F23B4 /* saltfill.storyboard */; };
 		BBEB6E8726F11840003F23B4 /* SaltFillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEB6E8426F11840003F23B4 /* SaltFillViewController.swift */; };
 		BBEB6E8826F11840003F23B4 /* SaltFillSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEB6E8526F11840003F23B4 /* SaltFillSpecs.swift */; };
@@ -176,13 +171,10 @@
 		BBF0F959240D911700886076 /* FiltrationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F953240D911700886076 /* FiltrationSettingsViewController.swift */; };
 		BBF0F95A240D911700886076 /* FiltrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F954240D911700886076 /* FiltrationViewController.swift */; };
 		BBF0F95B240D911700886076 /* FiltrationSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F955240D911700886076 /* FiltrationSpecs.swift */; };
-		BBF0F95C240D911700886076 /* FiltrationPumpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F956240D911700886076 /* FiltrationPumpDetailViewController.swift */; };
-		BBF0F95D240D911700886076 /* FiltrationSchedulerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F957240D911700886076 /* FiltrationSchedulerViewController.swift */; };
 		BBF0F96A240D9A2900886076 /* wind.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBF0F969240D9A2900886076 /* wind.storyboard */; };
 		BBF0F96F240D9A3800886076 /* WindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F96B240D9A3800886076 /* WindViewController.swift */; };
 		BBF0F970240D9A3800886076 /* WindAnemometerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F96C240D9A3800886076 /* WindAnemometerViewController.swift */; };
 		BBF0F972240D9A3800886076 /* WindSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F96E240D9A3800886076 /* WindSpecs.swift */; };
-		BBF0F974240D9B5600886076 /* FiltrationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F973240D9B5600886076 /* FiltrationSelectViewController.swift */; };
 		BBF721F826E7E8CD0090FFCC /* WindSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF721F726E7E8CD0090FFCC /* WindSelectViewController.swift */; };
 		BBF721FA26E7F63F0090FFCC /* windSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF721F926E7F63F0090FFCC /* windSettingsViewController.swift */; };
 		BBF9B8D723F4B4F800DF67A1 /* SystemStatusSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF9B8D323F4B4F800DF67A1 /* SystemStatusSpecs.swift */; };
@@ -344,12 +336,8 @@
 		9BC042B52267C265001E2F49 /* FogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogViewController.swift; sourceTree = "<group>"; };
 		9BC042B62267C265001E2F49 /* FogSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FogSettingsViewController.swift; sourceTree = "<group>"; };
 		9BF5679C20DC69DE001AFD30 /* iPadControls-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "iPadControls-Info.plist"; path = "Resources/iPadControls-Info.plist"; sourceTree = "<group>"; };
-		BB2479D7270765D000C94588 /* LightsSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsSelectViewController.swift; sourceTree = "<group>"; };
 		BB2479D9270F778900C94588 /* SaltPurgeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaltPurgeViewController.swift; sourceTree = "<group>"; };
 		BB2479DB2710B3D700C94588 /* SaltPurgeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaltPurgeSettingsViewController.swift; sourceTree = "<group>"; };
-		BB2F9E71262F88C000673A70 /* WallOneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallOneViewController.swift; sourceTree = "<group>"; };
-		BB2F9E73262F891500673A70 /* WallTwoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallTwoViewController.swift; sourceTree = "<group>"; };
-		BB2F9E75262F892A00673A70 /* WallThreeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallThreeViewController.swift; sourceTree = "<group>"; };
 		BB40939F25E35D07008A110A /* lights.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = lights.storyboard; sourceTree = "<group>"; };
 		BB4093A025E35D07008A110A /* LightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightsViewController.swift; sourceTree = "<group>"; };
 		BB4093A125E35D07008A110A /* LightsSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightsSpecs.swift; sourceTree = "<group>"; };
@@ -387,7 +375,6 @@
 		BBC22C4626E2CF3E00848F23 /* ProjectorSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectorSpecs.swift; sourceTree = "<group>"; };
 		BBCC80F6291583B200AF0683 /* FillerShowsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillerShowsViewController.swift; sourceTree = "<group>"; };
 		BBCC80F7291583B200AF0683 /* fillerShows.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = fillerShows.storyboard; sourceTree = "<group>"; };
-		BBDCE42727A9F69A00A8FF6B /* BollardLightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BollardLightViewController.swift; sourceTree = "<group>"; };
 		BBEB6E8326F11840003F23B4 /* saltfill.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = saltfill.storyboard; sourceTree = "<group>"; };
 		BBEB6E8426F11840003F23B4 /* SaltFillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaltFillViewController.swift; sourceTree = "<group>"; };
 		BBEB6E8526F11840003F23B4 /* SaltFillSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaltFillSpecs.swift; sourceTree = "<group>"; };
@@ -410,13 +397,10 @@
 		BBF0F953240D911700886076 /* FiltrationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltrationSettingsViewController.swift; sourceTree = "<group>"; };
 		BBF0F954240D911700886076 /* FiltrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltrationViewController.swift; sourceTree = "<group>"; };
 		BBF0F955240D911700886076 /* FiltrationSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltrationSpecs.swift; sourceTree = "<group>"; };
-		BBF0F956240D911700886076 /* FiltrationPumpDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltrationPumpDetailViewController.swift; sourceTree = "<group>"; };
-		BBF0F957240D911700886076 /* FiltrationSchedulerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltrationSchedulerViewController.swift; sourceTree = "<group>"; };
 		BBF0F969240D9A2900886076 /* wind.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = wind.storyboard; sourceTree = "<group>"; };
 		BBF0F96B240D9A3800886076 /* WindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindViewController.swift; sourceTree = "<group>"; };
 		BBF0F96C240D9A3800886076 /* WindAnemometerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindAnemometerViewController.swift; sourceTree = "<group>"; };
 		BBF0F96E240D9A3800886076 /* WindSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindSpecs.swift; sourceTree = "<group>"; };
-		BBF0F973240D9B5600886076 /* FiltrationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltrationSelectViewController.swift; sourceTree = "<group>"; };
 		BBF721F726E7E8CD0090FFCC /* WindSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindSelectViewController.swift; sourceTree = "<group>"; };
 		BBF721F926E7F63F0090FFCC /* windSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = windSettingsViewController.swift; sourceTree = "<group>"; };
 		BBF9B8D323F4B4F800DF67A1 /* SystemStatusSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemStatusSpecs.swift; sourceTree = "<group>"; };
@@ -597,9 +581,6 @@
 				9B725D7A214775BD008886A2 /* PumpSettingsViewController.swift */,
 				9B725D7C214775BD008886A2 /* AutoPumpDetailViewController.swift */,
 				9B725D7B214775BD008886A2 /* PumpsViewController.swift */,
-				BB2F9E71262F88C000673A70 /* WallOneViewController.swift */,
-				BB2F9E73262F891500673A70 /* WallTwoViewController.swift */,
-				BB2F9E75262F892A00673A70 /* WallThreeViewController.swift */,
 				DB46ABA923B1AFE8003A4388 /* PumpSchedulerViewController.swift */,
 			);
 			name = "Multi View Pumps";
@@ -866,8 +847,6 @@
 			isa = PBXGroup;
 			children = (
 				BB40939F25E35D07008A110A /* lights.storyboard */,
-				BBDCE42727A9F69A00A8FF6B /* BollardLightViewController.swift */,
-				BB2479D7270765D000C94588 /* LightsSelectViewController.swift */,
 				BB4093A025E35D07008A110A /* LightsViewController.swift */,
 				BB4093A125E35D07008A110A /* LightsSpecs.swift */,
 			);
@@ -985,10 +964,7 @@
 				BBF0F952240D911700886076 /* filtration.storyboard */,
 				BBF0F953240D911700886076 /* FiltrationSettingsViewController.swift */,
 				BBF0F954240D911700886076 /* FiltrationViewController.swift */,
-				BBF0F973240D9B5600886076 /* FiltrationSelectViewController.swift */,
 				BBF0F955240D911700886076 /* FiltrationSpecs.swift */,
-				BBF0F956240D911700886076 /* FiltrationPumpDetailViewController.swift */,
-				BBF0F957240D911700886076 /* FiltrationSchedulerViewController.swift */,
 			);
 			path = Filtration;
 			sourceTree = "<group>";
@@ -1213,7 +1189,6 @@
 				9B5F3F8220DC5AD900D3CFDF /* modbus-data.c in Sources */,
 				9B725D7E214775BD008886A2 /* PumpsSpecs.swift in Sources */,
 				BBF721F826E7E8CD0090FFCC /* WindSelectViewController.swift in Sources */,
-				BB2F9E72262F88C000673A70 /* WallOneViewController.swift in Sources */,
 				BBEB6E9D26F27B65003F23B4 /* FireSpireSettingsViewController.swift in Sources */,
 				BB5C2575271629650032D139 /* ShowMonitorViewController.swift in Sources */,
 				BB2479DC2710B3D700C94588 /* SaltPurgeSettingsViewController.swift in Sources */,
@@ -1230,7 +1205,6 @@
 				9B5F3FA920DC5AF400D3CFDF /* ACTDayValues.m in Sources */,
 				9B5F3F8120DC5AD900D3CFDF /* AFSecurityPolicy.m in Sources */,
 				BBEB6EAA26F2BB4D003F23B4 /* HCPSettingsTwoViewController.swift in Sources */,
-				BB2F9E74262F891500673A70 /* WallTwoViewController.swift in Sources */,
 				BB629DE226E012500005D4CB /* ACTInstantPlayViewController.m in Sources */,
 				9B4E107C218265B700604006 /* TDSViewController.swift in Sources */,
 				BBEB6E8E26F15573003F23B4 /* SaltFillSettingsViewController.swift in Sources */,
@@ -1242,8 +1216,6 @@
 				9B5F3F8F20DC5AD900D3CFDF /* RDVCalendarView.m in Sources */,
 				9B5F3F7B20DC5AD900D3CFDF /* AFURLConnectionOperation.m in Sources */,
 				9B5F3F7320DC5AD900D3CFDF /* UIRefreshControl+AFNetworking.m in Sources */,
-				BB2F9E76262F892A00673A70 /* WallThreeViewController.swift in Sources */,
-				BBF0F974240D9B5600886076 /* FiltrationSelectViewController.swift in Sources */,
 				BBEB6EA826F29BCA003F23B4 /* HCPSettingsViewController.swift in Sources */,
 				9B4E107E218265B700604006 /* WaterQualitySettingsViewController.swift in Sources */,
 				9BC042B92267C265001E2F49 /* FogViewController.swift in Sources */,
@@ -1257,7 +1229,6 @@
 				9B5F401920DC5B1200D3CFDF /* HomeViewController.swift in Sources */,
 				BB489E4322726EB2004695F8 /* WQMultipleViewController.swift in Sources */,
 				BBEB6EA526F29A73003F23B4 /* HCPViewController.swift in Sources */,
-				BBF0F95D240D911700886076 /* FiltrationSchedulerViewController.swift in Sources */,
 				9BB3349521482B350004FFBC /* WeekSchedulerSpecs.swift in Sources */,
 				9BC042B82267C265001E2F49 /* FogSpecs.swift in Sources */,
 				9B5F3F7420DC5AD900D3CFDF /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -1291,7 +1262,6 @@
 				BB629DFE26E0126F0005D4CB /* ACTScheduleViewController.m in Sources */,
 				BB2479DA270F778900C94588 /* SaltPurgeViewController.swift in Sources */,
 				BBEB6E9F26F27BB8003F23B4 /* FireSpireSelSettingsViewController.swift in Sources */,
-				BB2479D8270765D000C94588 /* LightsSelectViewController.swift in Sources */,
 				9B5F3F8B20DC5AD900D3CFDF /* ObjectiveLibModbus.m in Sources */,
 				9B5F3F2020DC5AB400D3CFDF /* IntrusionError+CoreDataClass.swift in Sources */,
 				BBC22C4726E2CF3E00848F23 /* ProjectorSpecs.swift in Sources */,
@@ -1321,7 +1291,6 @@
 				9B5F3F1C20DC5AB400D3CFDF /* Show+CoreDataProperties.swift in Sources */,
 				BB629E0026E0126F0005D4CB /* ACTCalendarScheduleViewController.m in Sources */,
 				BBF0F96F240D9A3800886076 /* WindViewController.swift in Sources */,
-				BBDCE42827A9F69A00A8FF6B /* BollardLightViewController.swift in Sources */,
 				9B5F3F7220DC5AD900D3CFDF /* UIProgressView+AFNetworking.m in Sources */,
 				9B5F3FA520DC5AF400D3CFDF /* HomeGeneralSpecs.swift in Sources */,
 				9B5F3F8E20DC5AD900D3CFDF /* RDVCalendarDayCell.m in Sources */,
@@ -1331,7 +1300,6 @@
 				9B5F401820DC5B1200D3CFDF /* HomeSettingsViewController.swift in Sources */,
 				9B8DB340214832B6001CF70D /* WaterLevelSpecs.swift in Sources */,
 				9B5F3FAD20DC5AF400D3CFDF /* ShowManager.swift in Sources */,
-				BBF0F95C240D911700886076 /* FiltrationPumpDetailViewController.swift in Sources */,
 				BBF9B8D823F4B4F800DF67A1 /* SystemStatusViewController.swift in Sources */,
 				9B5F3F1A20DC5AB400D3CFDF /* Pump+CoreDataProperties.swift in Sources */,
 				BB6568E624215FDB00229999 /* SysLogTextViewController.swift in Sources */,

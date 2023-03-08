@@ -41,7 +41,7 @@ var setUDForConnection            = false
  ***************************************************************************/
 
 //Testing Only
-let PLC_IP_ADDRESS                 = "10.0.4.230"//"192.168.1.230"
+let PLC_IP_ADDRESS                 = "10.0.4.231"//"192.168.1.230"
 let SERVER_IP_ADDRESS              = "10.0.4.2"//"192.168.1.1"
 let SPM_IP_ADDRESS                 = "10.0.4.201"//"192.168.1.201"
 
@@ -193,16 +193,16 @@ let SCREENS = [
     "lights",
     "fillerShows",
     "pumps",
-    "hcp",
+    "",
     "wind",
     "WQMultiple",
     "waterLevel",
-    "firespire",
+    "",
     "filtration",
     "operationManual",
-    "saltfill",
-    "Projector",
-    "fog",
+    "",
+    "",
+    "",
     "settings",
     "showList",
     ""

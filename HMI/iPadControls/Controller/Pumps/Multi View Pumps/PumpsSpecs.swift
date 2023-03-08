@@ -94,36 +94,27 @@ let PUMP_FAULT_SET = [
 
 //ANIMATION PUMPS REGISTERS 22 - 40
 
-let SURGE_PUMP_EN                     = 2110
-let SURGE_PUMP_SCH_BIT                = 2112
+let TWW_PUMP_EN                     = 2000
+let TWW_PUMP_SCH_BIT                = 2002
 
-let DISPLAY_PUMP_EN                   = 2116
-let DISPLAY_PUMP_SCH_BIT              = 2118
+let RR_PUMP_EN                   = 2008
+let RR_PUMP_SCH_BIT              = 2010
 
-let RUNNEL_PUMP_EN                    = 2119
-let RUNNEL_PUMP_SCH_BIT               = 2121
+let GLASS_PUMP_EN                    = 2004
+let GLASS_PUMP_SCH_BIT               = 2006
 
-let WALL_1_SURGE_PUMPS_FAULT_STATUS_START_REGISTER = 1008
-let WALL_1_SURGE_PUMPS_RUNNING_STATUS_START_REGISTER = 1004
+let PUMPS_FAULT_STATUS_START_REGISTER = 1008
+let PUMPS_RUNNING_STATUS_START_REGISTER = 1004
 
-let WALL_2_SURGE_PUMPS_FAULT_STATUS_START_REGISTER = 1288
-let WALL_2_SURGE_PUMPS_RUNNING_STATUS_START_REGISTER = 1284
+let READ_TWW_SERVER_PATH               = "readWWPumpSch"
+let WRITE_TWW_SERVER_PATH              = "writeWWPumpSch"
 
-let WALL_3_SURGE_PUMPS_FAULT_STATUS_START_REGISTER = 1428
-let WALL_3_SURGE_PUMPS_RUNNING_STATUS_START_REGISTER = 1424
+let READ_RR_SERVER_PATH             = "readRRPumpSch"
+let WRITE_RR_SERVER_PATH            = "writeRRPumpSch"
 
-let READ_SURGE_SERVER_PATH               = "readSurgePumpSch"
-let WRITE_SURGE_SERVER_PATH              = "writeSurgePumpSch"
+let READ_GLASS_SERVER_PATH              = "readGlassWWPumpSch"
+let WRITE_GLASS_SERVER_PATH             = "writeGlassWWPumpSch"
 
-let READ_DISPLAY_SERVER_PATH             = "readDisplayPumpSch"
-let WRITE_DISPLAY_SERVER_PATH            = "writeDisplayPumpSch"
-
-let READ_RUNNEL_SERVER_PATH              = "readRunnelPumpSch"
-let WRITE_RUNNEL_SERVER_PATH             = "writeRunnelPumpSch"
-
-let DISPLAY_PUMPS_FAULT_STATUS_START_REGISTER = 1092
-let CASCADE_PUMPS_FAULT_STATUS_START_REGISTER = 1008
-let SURGE_PUMPS_FAULT_STATUS_START_REGISTER   = 1120
 let EAST_WEST_ZONE_STATUS_REGISTER = 3021
 let WEST_MOTOR_STARTER_REGISTER = 2257
 let EAST_MOTOR_STARTER_REGISTER = 2262

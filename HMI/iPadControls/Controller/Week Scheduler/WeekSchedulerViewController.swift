@@ -200,11 +200,13 @@ class WeekSchedulerViewController: UIViewController, UIPopoverPresentationContro
                 localTimeSliderValue >= topWeekendSlider.value && localTimeSliderValue <= bottomWeekendSlider.value {
                 if readServerPath == "readLights" {
                     scheduleIsOn = true
-                } else if readServerPath == "readDisplayPumpSch" {
+                } else if readServerPath == "readWWPumpSch" {
                     scheduleIsOn = true
-                } else if readServerPath == "readCascadeSch" {
+                } else if readServerPath == "readRRPumpSch" {
                     scheduleIsOn = true
-                } else if readServerPath == "readFillerShowSch" {
+                } else if readServerPath == "readGlassWWPumpSch" {
+                    scheduleIsOn = true
+                } else if readServerPath == "readFilterSch" {
                     scheduleIsOn = true
                 }
                 

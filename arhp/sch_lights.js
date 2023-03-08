@@ -43,7 +43,7 @@ function lightsWrapper(){
     if ((current_time >= on_time)&&(current_time < off_time)){
 
         //turn ON
-        plc_client.writeSingleCoil(3502,1,function(resp){});
+        plc_client.writeSingleCoil(3501,1,function(resp){});
         // if (sysStatus[0].statusLights[0] === 0){
         //     dayMode=0;
         // }
@@ -51,7 +51,7 @@ function lightsWrapper(){
     }else{
             
         //turn OFF
-        plc_client.writeSingleCoil(3502,0,function(resp){});
+        plc_client.writeSingleCoil(3501,0,function(resp){});
         // if (sysStatus[0].statusLights[0] === 0){
         //     dayMode=1;
         // }
