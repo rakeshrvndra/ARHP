@@ -124,7 +124,6 @@
 		BB4093A225E35D07008A110A /* lights.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB40939F25E35D07008A110A /* lights.storyboard */; };
 		BB4093A325E35D07008A110A /* LightsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4093A025E35D07008A110A /* LightsViewController.swift */; };
 		BB4093A425E35D07008A110A /* LightsSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4093A125E35D07008A110A /* LightsSpecs.swift */; };
-		BB489E4322726EB2004695F8 /* WQMultipleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB489E4222726EB1004695F8 /* WQMultipleViewController.swift */; };
 		BB4BB30E26FBF54B00FF1290 /* OManual.pdf in Resources */ = {isa = PBXBuildFile; fileRef = BB4BB30D26FBF54B00FF1290 /* OManual.pdf */; };
 		BB59252323E35A6400F49039 /* EStop.png in Resources */ = {isa = PBXBuildFile; fileRef = BB59252223E35A6400F49039 /* EStop.png */; };
 		BB5C2575271629650032D139 /* ShowMonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5C2574271629650032D139 /* ShowMonitorViewController.swift */; };
@@ -175,7 +174,6 @@
 		BBF0F96F240D9A3800886076 /* WindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F96B240D9A3800886076 /* WindViewController.swift */; };
 		BBF0F970240D9A3800886076 /* WindAnemometerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F96C240D9A3800886076 /* WindAnemometerViewController.swift */; };
 		BBF0F972240D9A3800886076 /* WindSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF0F96E240D9A3800886076 /* WindSpecs.swift */; };
-		BBF721F826E7E8CD0090FFCC /* WindSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF721F726E7E8CD0090FFCC /* WindSelectViewController.swift */; };
 		BBF721FA26E7F63F0090FFCC /* windSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF721F926E7F63F0090FFCC /* windSettingsViewController.swift */; };
 		BBF9B8D723F4B4F800DF67A1 /* SystemStatusSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF9B8D323F4B4F800DF67A1 /* SystemStatusSpecs.swift */; };
 		BBF9B8D823F4B4F800DF67A1 /* SystemStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBF9B8D423F4B4F800DF67A1 /* SystemStatusViewController.swift */; };
@@ -341,7 +339,6 @@
 		BB40939F25E35D07008A110A /* lights.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = lights.storyboard; sourceTree = "<group>"; };
 		BB4093A025E35D07008A110A /* LightsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightsViewController.swift; sourceTree = "<group>"; };
 		BB4093A125E35D07008A110A /* LightsSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LightsSpecs.swift; sourceTree = "<group>"; };
-		BB489E4222726EB1004695F8 /* WQMultipleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WQMultipleViewController.swift; sourceTree = "<group>"; };
 		BB4BB30D26FBF54B00FF1290 /* OManual.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = OManual.pdf; sourceTree = "<group>"; };
 		BB59252223E35A6400F49039 /* EStop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EStop.png; sourceTree = "<group>"; };
 		BB5C2574271629650032D139 /* ShowMonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMonitorViewController.swift; sourceTree = "<group>"; };
@@ -401,7 +398,6 @@
 		BBF0F96B240D9A3800886076 /* WindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindViewController.swift; sourceTree = "<group>"; };
 		BBF0F96C240D9A3800886076 /* WindAnemometerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindAnemometerViewController.swift; sourceTree = "<group>"; };
 		BBF0F96E240D9A3800886076 /* WindSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindSpecs.swift; sourceTree = "<group>"; };
-		BBF721F726E7E8CD0090FFCC /* WindSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindSelectViewController.swift; sourceTree = "<group>"; };
 		BBF721F926E7F63F0090FFCC /* windSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = windSettingsViewController.swift; sourceTree = "<group>"; };
 		BBF9B8D323F4B4F800DF67A1 /* SystemStatusSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemStatusSpecs.swift; sourceTree = "<group>"; };
 		BBF9B8D423F4B4F800DF67A1 /* SystemStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemStatusViewController.swift; sourceTree = "<group>"; };
@@ -597,7 +593,6 @@
 				9B4E1078218265B700604006 /* ORPViewController.swift */,
 				9B4E1079218265B700604006 /* BromineViewController.swift */,
 				9B4E1075218265B700604006 /* WaterQualityViewController.swift */,
-				BB489E4222726EB1004695F8 /* WQMultipleViewController.swift */,
 				9B4E107A218265B700604006 /* WQMultiple.storyboard */,
 				9B4E1073218265B700604006 /* WaterQualitySpecs.swift */,
 				9B4E1076218265B700604006 /* WaterQualitySettingsViewController.swift */,
@@ -976,7 +971,6 @@
 				BBF0F96C240D9A3800886076 /* WindAnemometerViewController.swift */,
 				BBF0F96E240D9A3800886076 /* WindSpecs.swift */,
 				BBF721F926E7F63F0090FFCC /* windSettingsViewController.swift */,
-				BBF721F726E7E8CD0090FFCC /* WindSelectViewController.swift */,
 				BBF0F96B240D9A3800886076 /* WindViewController.swift */,
 			);
 			path = Wind;
@@ -1188,7 +1182,6 @@
 				BBCC80F8291583B200AF0683 /* FillerShowsViewController.swift in Sources */,
 				9B5F3F8220DC5AD900D3CFDF /* modbus-data.c in Sources */,
 				9B725D7E214775BD008886A2 /* PumpsSpecs.swift in Sources */,
-				BBF721F826E7E8CD0090FFCC /* WindSelectViewController.swift in Sources */,
 				BBEB6E9D26F27B65003F23B4 /* FireSpireSettingsViewController.swift in Sources */,
 				BB5C2575271629650032D139 /* ShowMonitorViewController.swift in Sources */,
 				BB2479DC2710B3D700C94588 /* SaltPurgeSettingsViewController.swift in Sources */,
@@ -1227,7 +1220,6 @@
 				9B5F3F9020DC5AD900D3CFDF /* RDVCalendarViewController.m in Sources */,
 				9B4E107F218265B700604006 /* PHViewController.swift in Sources */,
 				9B5F401920DC5B1200D3CFDF /* HomeViewController.swift in Sources */,
-				BB489E4322726EB2004695F8 /* WQMultipleViewController.swift in Sources */,
 				BBEB6EA526F29A73003F23B4 /* HCPViewController.swift in Sources */,
 				9BB3349521482B350004FFBC /* WeekSchedulerSpecs.swift in Sources */,
 				9BC042B82267C265001E2F49 /* FogSpecs.swift in Sources */,

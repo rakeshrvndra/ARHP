@@ -22,12 +22,6 @@ import UIKit
 
 class WaterQualitySettingsViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var w3close: UITextField!
-    @IBOutlet weak var w3dose: UITextField!
-    @IBOutlet weak var w3open: UITextField!
-    @IBOutlet weak var w2close: UITextField!
-    @IBOutlet weak var w2dose: UITextField!
-    @IBOutlet weak var w2open: UITextField!
     @IBOutlet weak var w1close: UITextField!
     @IBOutlet weak var w1dose: UITextField!
     @IBOutlet weak var w1open: UITextField!
@@ -139,29 +133,17 @@ class WaterQualitySettingsViewController: UIViewController, UITextFieldDelegate 
             }
         })
         
-        CENTRAL_SYSTEM?.readRegister(length: 9, startingRegister: Int32(WQ_BR_TIMER_REGISTER), completion:{ (success, response) in
+        CENTRAL_SYSTEM?.readRegister(length: 3, startingRegister: Int32(WQ_BR_TIMER_REGISTER), completion:{ (success, response) in
             
             if success == true{
                 
-                let w1opnval = Int(truncating: response![0] as! NSNumber)
-                let w1dseval = Int(truncating: response![1] as! NSNumber)
-                let w1clsval = Int(truncating: response![2] as! NSNumber)
-                let w2opnval = Int(truncating: response![3] as! NSNumber)
-                let w2dseval = Int(truncating: response![4] as! NSNumber)
-                let w2clsval = Int(truncating: response![5] as! NSNumber)
-                let w3opnval = Int(truncating: response![6] as! NSNumber)
-                let w3dseval = Int(truncating: response![7] as! NSNumber)
-                let w3clsval = Int(truncating: response![8] as! NSNumber)
+                let w1clsval = Int(truncating: response![0] as! NSNumber)
+                let w1opnval = Int(truncating: response![1] as! NSNumber)
+                let w1dseval = Int(truncating: response![2] as! NSNumber)
                 
                 self.w1open.text  = "\(w1opnval)"
                 self.w1dose.text  = "\(w1dseval)"
                 self.w1close.text = "\(w1clsval)"
-                self.w2open.text  = "\(w2opnval)"
-                self.w2dose.text  = "\(w2dseval)"
-                self.w2close.text = "\(w2clsval)"
-                self.w3open.text  = "\(w3opnval)"
-                self.w3dose.text  = "\(w3dseval)"
-                self.w3close.text = "\(w3clsval)"
                 
             }
         })
@@ -247,32 +229,20 @@ class WaterQualitySettingsViewController: UIViewController, UITextFieldDelegate 
         let brominatorTimeoutSP = Int(brominatorTimeoutTxt.text!)
         
         let w1openVal      = Int(w1open.text!)
-        let w2openVal      = Int(w2open.text!)
-        let w3openVal      = Int(w3open.text!)
         let w1doseVal      = Int(w1dose.text!)
-        let w2doseVal      = Int(w2dose.text!)
-        let w3doseVal      = Int(w3dose.text!)
         let w1closeVal     = Int(w1close.text!)
-        let w2closeVal     = Int(w2close.text!)
-        let w3closeVal     = Int(w3close.text!)
         
         //Checkpoints to make sure setpoint inputs are not empty
-        guard oprDelayTimerSP != nil && phDelayTimerSP != nil && tdsDelayTimerSP != nil && brominatorTimeoutSP != nil && w1openVal != nil && w2openVal != nil && w3openVal != nil && w1closeVal != nil && w2closeVal != nil && w3closeVal != nil && w1doseVal != nil && w2doseVal != nil && w3doseVal != nil else { return }
+        guard oprDelayTimerSP != nil && phDelayTimerSP != nil && tdsDelayTimerSP != nil && brominatorTimeoutSP != nil && w1openVal != nil && w1closeVal != nil && w1doseVal != nil else { return }
         
         CENTRAL_SYSTEM?.writeRegister(register: WQ_ORP_TIMER_REGISTER, value: oprDelayTimerSP!)
         CENTRAL_SYSTEM?.writeRegister(register: WQ_PH_TIMER_REGISTER, value: phDelayTimerSP!)
         CENTRAL_SYSTEM?.writeRegister(register: WQ_TDS_TIMER_REGISTER, value: tdsDelayTimerSP!)
         CENTRAL_SYSTEM?.writeRegister(register: WQ_BROMINATOR_TIMEOUT_REGISTER, value: brominatorTimeoutSP!)
         
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER, value: w1openVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+1, value: w1doseVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+2, value: w1closeVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+3, value: w2openVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+4, value: w2doseVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+5, value: w2closeVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+6, value: w3openVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+7, value: w3doseVal!)
-        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+8, value: w3closeVal!)
+        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER, value: w1closeVal!)
+        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+1, value: w1openVal!)
+        CENTRAL_SYSTEM?.writeRegister(register: WQ_BR_TIMER_REGISTER+2, value: w1doseVal!)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
             self.getSetpoints()

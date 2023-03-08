@@ -65,7 +65,14 @@ let MAX_FILTRATION_BACKWASH_SPEED               = 50.0
 let MAX_FILTRATION_FREQUENCY                    = 50.0
 let DAY_PICKER_DATA_SOURCE                      = ["SUNDAY","MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY"]
 
+let PT1001_SCALEDVAL                = 4104
+let PT1002_SCALEDVAL                = 4110
+let PT1003_SCALEDVAL                = 4116
 
+let PT1001_SCALEDMAX                = 4108
+let PT1002_SCALEDMAX                = 4114
+let PT1003_SCALEDMAX                = 4120
 
-
-
+let PT1001_SCALEDMIN                = 4106
+let PT1002_SCALEDMIN                = 4112
+let PT1003_SCALEDMIN                = 4118

@@ -142,21 +142,9 @@ class WaterQualityViewController: UIViewController{
         
         brominatorTimedOut.text = langData["BROMINATOR TIMED OUT"]!
         brDisabledLbl.text = langData["BROMINATOR DISABLED"]!
-        if waterQualityEW == 3{
-            self.navigationItem.title = "WALL - 3"
-            westoffset = 80
-            ozoneBtn.isHidden = false
-        } else if waterQualityEW == 2 {
-            self.navigationItem.title  = "WALL - 2"
-            westoffset = 40
-            ozoneBtn.isHidden = false
-        } else if waterQualityEW == 1 {
-            self.navigationItem.title  = "WALL - 1"
-            westoffset = 0
-            ozoneBtn.isHidden = false
-        }
-        
-        
+        self.navigationItem.title  = "WATER QUALITY"
+        westoffset = 0
+        ozoneBtn.isHidden = true
     }
     
     
@@ -325,32 +313,8 @@ class WaterQualityViewController: UIViewController{
      ***************************************************************************/
     
     private func getChartDataFromServer(){
-    
-            switch  dataAcquisitionMode{
-            
-                
-            case WQ_LIVE_MODE_STATE:
-                if waterQualityEW == 1{
-                    fetchWQData(path: WQ1_LIVE_SERVER_PATH)
-                } else if waterQualityEW == 2 {
-                    fetchWQData(path: WQ2_LIVE_SERVER_PATH)
-                } else if waterQualityEW == 3 {
-                    fetchWQData(path: WQ3_LIVE_SERVER_PATH)
-                }
-            case WQ_DAY_MODE_STATE:
-                if waterQualityEW == 1{
-                    fetchWQData(path: WQ1_DAY_SERVER_PATH)
-                } else if waterQualityEW == 2 {
-                    fetchWQData(path: WQ2_DAY_SERVER_PATH)
-                } else if waterQualityEW == 3 {
-                    fetchWQData(path: WQ3_DAY_SERVER_PATH)
-                }
-            default:
-                
-                self.logger.logData(data: "NO VALID STATE FOUND FOR WATER QUALITY DATA ACQUISITION MODE.")
-                
-            }
-        }
+            fetchWQData(path: WQ1_LIVE_SERVER_PATH)
+    }
     
     /***************************************************************************
      * Function :  fetchWQData

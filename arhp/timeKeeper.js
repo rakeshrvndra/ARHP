@@ -699,7 +699,7 @@ spm_client.readHoldingRegister(2000,2,function(resp){
             } 
         }
     } else {
-        plc_client.readHoldingRegister(840,1,function(resp){
+        plc_client.readHoldingRegister(810,1,function(resp){
           if (resp != undefined && resp != null){
 
                var spmWindMde = resp.register[0];

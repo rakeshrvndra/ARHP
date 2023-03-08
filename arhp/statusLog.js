@@ -81,7 +81,6 @@ if (PLCConnected){
             fault_ShowStoppers.push(resp.coils[5] ? resp.coils[5] : 0); // System Estop
             fault_ShowStoppers.push(resp.coils[6] ? resp.coils[6] : 0); // WaterLevel ShowStopper
             fault_ShowStoppers.push(resp.coils[7] ? resp.coils[7] : 0); // Wind ShowStopper
-            fault_ShowStoppers.push(resp.coils[8] ? resp.coils[8] : 0); // Client_Emergency ESTOP
 
             var estopIndex = 20; //farm
             fault_ESTOP.push(resp.coils[estopIndex] ? resp.coils[estopIndex] : 0);       // AudioMute
@@ -231,7 +230,6 @@ if (PLCConnected){
                             "ShowStopper :Estop": fault_ShowStoppers[0],
                             "ShowStopper :LT1001 WaterLevelLow": fault_ShowStoppers[1],
                             "ShowStopper :Wind_Abort": fault_ShowStoppers[2],
-                            "ShowStopper :Client_EmergencyEstop": fault_ShowStoppers[3],
                             "***************************SHOW STATUS***************************" : "2",
                             "Show PlayMode": autoMan,
                             "Show PlayStatus":playing,
@@ -400,7 +398,6 @@ if (SPMConnected){
                 {"yes":"Show Stopper: Estop","no":"Show Stopper Resolved: Estop"},
                 {"yes":"Show Stopper: Water Level Below L","no":"Show Stopper Resolved: Water Level Below L"},
                 {"yes":"Show Stopper: Wind_Speed_Abort_Show","no":"Show Stopper Resolved: Wind_Speed_Abort_Show"},
-                {"yes":"Show Stopper: Client EmergencyEstop","no":"Show Stopper Resolved: Client EmergencyEstop"},
             ],
 
             [   // estop - farm 

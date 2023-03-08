@@ -190,7 +190,7 @@ class SystemStatusViewController: UIViewController {
             let indicator = view.viewWithTag(faultTag) as? UILabel
             
             switch faultTag {
-            case 10...17:
+            case 10...16:
                 
                 if state == 0 {
                     indicator?.isHidden = true
@@ -198,7 +198,7 @@ class SystemStatusViewController: UIViewController {
                     indicator?.isHidden = false
                     indicator?.frame = CGRect(x: 415, y: yPosition, width: 280, height: 21)
                     yPosition += offset
-                    if faultTag == 17{
+                    if faultTag == 14{
                         checkFaultButton.isHidden = false
                         checkFaultButton.frame.origin.y = CGFloat(yPosition-offset-3)
                         

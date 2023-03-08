@@ -39,6 +39,7 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
     @IBOutlet weak var countDownTimer: UILabel!
     
     @IBOutlet weak var pumpSchBtn: UIButton!
+       @IBOutlet weak var ptView: UIView!
     
     var manulPumpGesture: UIPanGestureRecognizer!
     var backWashGesture: UIPanGestureRecognizer!
@@ -132,7 +133,53 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
         WRITE_BACKWASH_PATH = WRITE_BACK_WASH1
     }
     
-    
+    func readPTValues(){
+       let pt1001scaledValue = self.ptView.viewWithTag(2001) as? UILabel
+       let pt1002scaledValue = self.ptView.viewWithTag(2002) as? UILabel
+       let pt1003scaledValue = self.ptView.viewWithTag(2003) as? UILabel
+       
+       let pt1001chFImg = self.ptView.viewWithTag(4001) as? UIImageView
+       let pt1002chFImg = self.ptView.viewWithTag(4002) as? UIImageView
+       let pt1003chFImg = self.ptView.viewWithTag(4003) as? UIImageView
+       
+       CENTRAL_SYSTEM!.readRealRegister(register:Int(PT1001_SCALEDVAL), length: 2){ (success, response)  in
+           
+          guard success == true else{
+              return
+          }
+           let val = Double(response)!
+           pt1001scaledValue!.text = String(format: "%.1f", val)
+       }
+       CENTRAL_SYSTEM!.readRealRegister(register:Int(PT1002_SCALEDVAL), length: 2){ (success, response)  in
+           
+          guard success == true else{
+              return
+          }
+           let val = Double(response)!
+           pt1002scaledValue!.text = String(format: "%.1f", val)
+       }
+       CENTRAL_SYSTEM!.readRealRegister(register:Int(PT1003_SCALEDVAL), length: 2){ (success, response)  in
+           
+          guard success == true else{
+              return
+          }
+           let val = Double(response)!
+           pt1003scaledValue!.text = String(format: "%.1f", val)
+       }
+       CENTRAL_SYSTEM?.readBits(length: 13, startingRegister: Int32(PT1001_SCALEDVAL), completion: { (sucess, response) in
+           
+           if response != nil{
+               let pt1001chFault = Int(truncating: response![0] as! NSNumber)
+               let pt1002chFault = Int(truncating: response![6] as! NSNumber)
+               let pt1003chFault = Int(truncating: response![12] as! NSNumber)
+               
+               pt1001chFault == 1 ? ( pt1001chFImg?.image = #imageLiteral(resourceName: "red")) : (pt1001chFImg?.image = #imageLiteral(resourceName: "green"))
+               pt1002chFault == 1 ? ( pt1002chFImg?.image = #imageLiteral(resourceName: "red")) : (pt1002chFImg?.image = #imageLiteral(resourceName: "green"))
+               pt1003chFault == 1 ? ( pt1003chFImg?.image = #imageLiteral(resourceName: "red")) : (pt1003chFImg?.image = #imageLiteral(resourceName: "green"))
+           }
+           
+       })
+    }
     /***************************************************************************
      * Function :  Check System Stat
      * Input    :  none
@@ -151,6 +198,7 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
             
             readManualBwash()
             readBWFeedback()
+            readPTValues()
             readCurrentFiltrationPumpDetails()
             readBackWashRunning()
             

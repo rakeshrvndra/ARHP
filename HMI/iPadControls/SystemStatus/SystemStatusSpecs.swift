@@ -9,8 +9,8 @@
 import Foundation
 
 
-let ETHERNET_STATUS = (startingregister: 121, count: 27)
-let STRAINER_STATUS = (startingregister: 4500, count: 27)
+let ETHERNET_STATUS = (startingregister: 200, count: 10)
+let STRAINER_STATUS = (startingregister: 4500, count: 10)
 
 let SYSTEM_FAULT_YELLOW = 60
 let SYSTEM_FAULT_RED    = 65
@@ -24,12 +24,11 @@ let SYSTEM_YELLOW_STATUS = [
 
 let SYSTEM_RED_STATUS = [
     
-    (tag: 10, bitwiseLocation: 0,  type:"INT", name: "Hydraulic Pump Fault"),
-    (tag: 11, bitwiseLocation: 1,  type:"INT", name: "Filter Pump Fault"),
-    (tag: 12, bitwiseLocation: 2,  type:"INT", name: "Cascade Pump Fault"),
-    (tag: 13, bitwiseLocation: 3,  type:"INT", name: "WaterLevel Fault"),
-    (tag: 14, bitwiseLocation: 4,  type:"INT", name: "WaterQuality Fault"),
-    (tag: 15, bitwiseLocation: 5,  type:"INT", name: "Estop"),
-    (tag: 16, bitwiseLocation: 6,  type:"INT", name: "Fog PumpFault"),
-    (tag: 17, bitwiseLocation: 7,  type:"INT", name: "Network Fault")
+    (tag: 10, bitwiseLocation: 0,  type:"INT", name: "Pump Fault"),
+    (tag: 11, bitwiseLocation: 1,  type:"INT", name: "Estop"),
+    (tag: 12, bitwiseLocation: 2,  type:"INT", name: "WaterLevel Fault"),
+    (tag: 13, bitwiseLocation: 3,  type:"INT", name: "WaterQuality Fault"),
+    (tag: 14, bitwiseLocation: 4,  type:"INT", name: "Network Fault"),
+    (tag: 15, bitwiseLocation: 5,  type:"INT", name: "Fire Fault"),
+    (tag: 16, bitwiseLocation: 6,  type:"INT", name: "Wind PumpFault")
 ]
