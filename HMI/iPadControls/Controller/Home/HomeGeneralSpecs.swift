@@ -41,7 +41,7 @@ var setUDForConnection            = false
  ***************************************************************************/
 
 //Testing Only
-let PLC_IP_ADDRESS                 = "10.0.4.231"//"192.168.1.230"
+let PLC_IP_ADDRESS                 = "10.0.4.232"//"192.168.1.230"
 let SERVER_IP_ADDRESS              = "10.0.4.2"//"192.168.1.1"
 let SPM_IP_ADDRESS                 = "10.0.4.201"//"192.168.1.201"
 
@@ -128,8 +128,8 @@ let DATA_ACQUISITION_STATE_FAILED  = 0
 let FAULT_DETECTED                 = 1  // was 0 in previous projects it would seem. Now in ARISE it is a 1.
 
 
-let WARNING_RESET_REGISTER         = 10503
-let FAULT_RESET_REGISTER           = 10504
+let WARNING_RESET_REGISTER         = 23
+let FAULT_RESET_REGISTER           = 24
 let SERVER_REBOOT_BIT              = 503
 let SELECT_SERVER_BIT              = 502
 

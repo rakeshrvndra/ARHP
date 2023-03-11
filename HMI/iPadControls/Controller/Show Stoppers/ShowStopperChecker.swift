@@ -70,16 +70,17 @@ class ShowStopperChecker: UIViewController {
                let estopNot_ok                 = Int(truncating: response[0] as! NSNumber)
             
                //Wind speed show stopper
-               let wind_speed_1_abort_show     = Int(truncating: response[2] as! NSNumber)
+               let wind_speed_1_abort_show     = Int(truncating: response[3] as! NSNumber)
         
                //Water Level Show Stopper
                let water_level_below_ll     = Int(truncating: response[1] as! NSNumber)
+               let lsll_lights              = Int(truncating: response[2] as! NSNumber)
         
                /* DO NOT CHANGE THE (showStopper: "NAME"). ALREADY SET AND CORRESPONDS TO THE CORRECT IMAGE NAME */
                let ratmode = self.showManager.getStatusLogFromServer()
                let ratmode_status = ratmode.spmRatmode
                
-               if water_level_below_ll == FAULT_DETECTED {
+               if water_level_below_ll == FAULT_DETECTED || lsll_lights == FAULT_DETECTED {
                    createShowStoppers(showStopper: "showStopperWaterLevel")
                } else {
                    removeShowStopper(showStopper: "showStopperWaterLevel")

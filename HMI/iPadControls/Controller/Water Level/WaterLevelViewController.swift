@@ -234,16 +234,16 @@ class WaterLevelViewController: UIViewController{
         
         if  lt1001liveSensorValues.below_lll == 1
         {
-            lowWaterNoShow.alpha = 1
+            lowWaterNoShow.isHidden = false
         } else
         {
-            lowWaterNoShow.alpha = 0
+            lowWaterNoShow.isHidden = true
         }
         
         if lt1001liveSensorValues.waterMakeupTimeout == 1{
-            fillTimeout.alpha = 1
+            fillTimeout.isHidden = false
         } else {
-            fillTimeout.alpha = 0
+            fillTimeout.isHidden = true
         }
     }
     

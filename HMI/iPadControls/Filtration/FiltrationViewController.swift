@@ -199,6 +199,7 @@ class FiltrationViewController: UIViewController,UIGestureRecognizerDelegate, UI
             readManualBwash()
             readBWFeedback()
             readPTValues()
+            getSchdeulerStatus()
             readCurrentFiltrationPumpDetails()
             readBackWashRunning()
             

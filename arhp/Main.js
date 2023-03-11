@@ -122,7 +122,6 @@ fillerShow_ok = 0;       //will be set based on the start time and end time
 //===============  User Changeable Parameters
 
 autoMan = 0;                //0 = scheduler 1 = manual
-deadMan = 0;                //1 = enabledeadMan 0 = disableDeadman 
 manPlay = 0;                //0 = user wants to stop show, SPM transforms to segment 0
 manFocus = 1;            //Denotes what playlist is in focus on user's iPad. betaBuffer is generated using this variable
 
@@ -148,7 +147,7 @@ filtrationPump_Status = 1; //1 - pump fault, 0 - good
 //plc_ip = 10.27.173.230 // Change these ip address when you deploy at site
 //spm_ip = 10.27.173.201
 
-plc_client = jsModbus.createTCPClient(502,'10.0.4.231',function(err){
+plc_client = jsModbus.createTCPClient(502,'10.0.4.232',function(err){
     if(err){
         watchDog.eventLog('PLC Modbus Connection Failed');
         PLCConnected=false;

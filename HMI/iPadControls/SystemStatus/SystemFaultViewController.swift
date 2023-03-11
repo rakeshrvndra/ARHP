@@ -70,7 +70,7 @@ class SystemFaultViewController: UIViewController {
     }
     
     private func customizeFaultLabel(x: Int, y: Int, index: Int) {
-        faultLabel = UILabel(frame: CGRect(x: x, y: y, width: 100, height: 20))
+        faultLabel = UILabel(frame: CGRect(x: x, y: y, width: 130, height: 20))
         faultLabel.textAlignment = .center
         faultLabel.textColor = RED_COLOR
         switch index {

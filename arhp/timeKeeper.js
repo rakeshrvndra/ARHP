@@ -76,7 +76,6 @@ function timeKeeperWrapper(){
 
             //watchDog.eventLog("SERVER IS IN MANUAL MODE");
             jumpToStep_auto = 0;
-            deadMan = 0;
 
             //Logic
             //Play show 0 as soon as it enters manual mode - only once
@@ -262,7 +261,6 @@ function timeKeeperWrapper(){
                             if(CALLED_CONDITION_1 == 0)
                             {
                                 watchDog.eventLog("NOW 30 Seconds Before Show" + now);
-                                deadMan = 1;
                                 GOT_SCHEDLED_SHOW = 1;
                                 CALLED_CONDITION_1 = 1;
                             }else
@@ -360,7 +358,6 @@ function timeKeeperWrapper(){
                     //watchDog.eventLog("jumpToStep_auto is " + jumpToStep_auto);
                     watchDog.eventLog("About to Start Show # " + currentShow);
                     CALLED_CONDITION_1 = 0;
-                    deadMan = 0;
                     //Issue the SPM to Play SHOW
                     spm_client.writeSingleRegister(1005,currentShow,function(resp){
                         show = currentShow;

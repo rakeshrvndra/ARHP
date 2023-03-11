@@ -29,9 +29,9 @@ let WQ_PH_CHANNEL_FAULT_BIT           = 300
 let WQ_OPR_CHANNEL_FAULT_BIT          = 310
 let WQ_TDS_CHANNEL_FAULT_BIT          = 320
 let WQ_PH_SCALED_VALUE                = 300
-let WQ_BR_DOSING_TIMEOUT_BIT          = 330
-let WQ_BR_ENABLED_BIT                 = 328
-let WQ_BR_DOSING                      = 328
+let WQ_BR_DOSING_TIMEOUT_BIT          = 331
+let WQ_BR_ENABLED_BIT                 = 332
+let WQ_BR_DOSING                      = 330
 
 //Water Quality Timers
 

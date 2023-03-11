@@ -20,37 +20,15 @@ class BRSetpointViewController: UIViewController {
     }
     private func readSetPoints(){
         
-        if waterqualityEW == 1{
-            CENTRAL_SYSTEM?.readRealRegister(register: 332, length: 2, completion: { (success, response) in
-                guard success == true else { return }
-                self.brSetpointLow.text   = "\(response)"
-            })
-            
-            CENTRAL_SYSTEM?.readRealRegister(register: 334, length: 2, completion: { (success, response) in
-                guard success == true else { return }
-                self.brSetpointHigh.text   = "\(response)"
-            })
-        } else if waterqualityEW == 2 {
-            CENTRAL_SYSTEM?.readRealRegister(register: 372, length: 2, completion: { (success, response) in
-                guard success == true else { return }
-                self.brSetpointLow.text   = "\(response)"
-            })
-            
-            CENTRAL_SYSTEM?.readRealRegister(register: 374, length: 2, completion: { (success, response) in
-                guard success == true else { return }
-                self.brSetpointHigh.text   = "\(response)"
-            })
-        } else if waterqualityEW == 3 {
-            CENTRAL_SYSTEM?.readRealRegister(register: 412, length: 2, completion: { (success, response) in
-                guard success == true else { return }
-                self.brSetpointLow.text   = "\(response)"
-            })
-            
-            CENTRAL_SYSTEM?.readRealRegister(register: 414, length: 2, completion: { (success, response) in
-                guard success == true else { return }
-                self.brSetpointHigh.text   = "\(response)"
-            })
-        }
+        CENTRAL_SYSTEM?.readRealRegister(register: 330, length: 2, completion: { (success, response) in
+            guard success == true else { return }
+            self.brSetpointLow.text   = "\(response)"
+        })
+        
+        CENTRAL_SYSTEM?.readRealRegister(register: 332, length: 2, completion: { (success, response) in
+            guard success == true else { return }
+            self.brSetpointHigh.text   = "\(response)"
+        })
         
     }
     
@@ -85,16 +63,8 @@ class BRSetpointViewController: UIViewController {
         }
        
         
-        if waterqualityEW == 1{
-            CENTRAL_SYSTEM?.writeRealValue(register: 332, value: Float(setpointlow!))
-            CENTRAL_SYSTEM?.writeRealValue(register: 334, value: Float(setpointhigh!))
-        } else if waterqualityEW == 2 {
-            CENTRAL_SYSTEM?.writeRealValue(register: 372, value: Float(setpointlow!))
-            CENTRAL_SYSTEM?.writeRealValue(register: 374, value: Float(setpointhigh!))
-        } else if waterqualityEW == 3 {
-            CENTRAL_SYSTEM?.writeRealValue(register: 412, value: Float(setpointlow!))
-            CENTRAL_SYSTEM?.writeRealValue(register: 414, value: Float(setpointhigh!))
-        }
+         CENTRAL_SYSTEM?.writeRealValue(register: 330, value: Float(setpointlow!))
+         CENTRAL_SYSTEM?.writeRealValue(register: 332, value: Float(setpointhigh!))
         
     }
     
